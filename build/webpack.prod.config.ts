@@ -3,7 +3,6 @@ import webpack from 'webpack';
 import merge from 'webpack-merge';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import processBarWebpackPlugin from 'progress-bar-webpack-plugin';
-import visualizerPlugin from 'webpack-visualizer-plugin';
 import compressionPlugin from 'compression-webpack-plugin';
 
 import commonWebpackConfig from './webpack.base.config';
@@ -24,9 +23,6 @@ const prodConfig: webpack.Configuration = merge(commonWebpackConfig, {
             ]
         }),
         new processBarWebpackPlugin(),
-        new visualizerPlugin({
-            filename: './statistics.html'
-        }),
         new compressionPlugin({
             test: /\.(js|css)$/,
             algorithm: 'gzip',
