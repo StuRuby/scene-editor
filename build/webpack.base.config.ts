@@ -25,17 +25,9 @@ const config: webpack.Configuration = {
             },
             {
                 test: /\.css$/,
-                exclude: [
-                    path.resolve(__dirname, '../node_modules')
-                ],
                 use: [
                     'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            minimize: true
-                        }
-                    }
+                    'css-loader',
                 ]
             },
             {
