@@ -11,12 +11,5 @@ const { SubMenu } = Menu;
 
 export function Menubar() {
 	const menubarFile = new MenubarFile();
-	return (
-		<Menu mode="horizontal">
-			{/* <MenubarEdit />
-			<MenubarAdd />
-			<MenubarExample />
-			<MenubarHelp /> */}
-		</Menu>
-	);
+	return <Menu mode="horizontal"></Menu>;
 }
