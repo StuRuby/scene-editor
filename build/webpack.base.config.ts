@@ -31,6 +31,27 @@ const config: webpack.Configuration = {
                 ]
             },
             {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[path][name]__[local]--[hash:base64:5]'
+                        }
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                strictMath: true
+                            }
+                        }
+                    }
+                ]
+            },
+            {
                 test: /\.(png|gif|jpe?g|svg|xml|json|ttf|woff|eot)$/,
                 use: ['url-loader']
             },

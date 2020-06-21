@@ -1,6 +1,7 @@
 export class MenubarFile {
-	list!: ListItem[];
+	list: ListItem[];
 	constructor() {
+		this.list = [];
 		this.newFile();
 		this.addDivider();
 		this.importFile();
