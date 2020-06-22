@@ -12,7 +12,10 @@
 		"type": "git",
 		"url": "git+https://github.com/StuRuby/scene-editor.git"
 	},
-	"keywords": [],
+	"keywords": [
+		"three.js",
+		"editor"
+	],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
