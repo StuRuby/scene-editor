@@ -2,6 +2,7 @@ import React from 'react';
 import { Tabs } from 'antd';
 
 import { SidebarSettings } from './settings';
+import { SidebarProject } from './project';
 
 const { TabPane } = Tabs;
 
@@ -12,7 +13,7 @@ export function Sidebar() {
 				Content of Tab Pane 1
 			</TabPane>
 			<TabPane tab="项目" key="project">
-				Content of Tab Pane 2
+				<SidebarProject />
 			</TabPane>
 			<TabPane tab="设置" key="settings">
 				<SidebarSettings />
