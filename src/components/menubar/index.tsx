@@ -19,11 +19,7 @@ export function Menubar() {
 	const example = new MenubarExample();
 	const help = new MenubarHelp();
 	return (
-		<Menu
-			mode="horizontal"
-			theme="dark"
-			defaultOpenKeys={['file']}
-			className={classnames(styles.menu)}>
+		<Menu mode="horizontal" theme="dark" className={classnames(styles.menu)}>
 			<SubMenu title="文件" key="file">
 				{_.map(file.runList, item => file[item]())}
 			</SubMenu>
