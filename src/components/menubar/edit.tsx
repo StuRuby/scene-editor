@@ -1,18 +1,54 @@
 import React from 'react';
 import { Menu } from 'antd';
 
-const { SubMenu } = Menu;
+export class MenubarEdit {
+	runList: RunItemName[];
+	constructor() {
+		this.runList = [
+			'undo',
+			'redo',
+			'clearHistory',
+			'clone',
+			'delete',
+			'minifyShaders',
+			'fixColorMaps',
+		];
+	}
 
-export function MenubarEdit() {
-	return (
-		<SubMenu key="edit">
-			<Menu.Item>撤销(Ctrl+Z)</Menu.Item>
-			<Menu.Item>重做(Ctrl+Shift+Z)</Menu.Item>
-			<Menu.Item>清空历史记录</Menu.Item>
-			<Menu.Item>拷贝</Menu.Item>
-			<Menu.Item>删除(Del)</Menu.Item>
-			<Menu.Item>压缩着色器</Menu.Item>
-			<Menu.Item>修复颜色贴图</Menu.Item>
-		</SubMenu>
-	);
+	redo() {
+		return <Menu.Item key="redo">撤销</Menu.Item>;
+	}
+
+	undo() {
+		return <Menu.Item key="undo">重做</Menu.Item>;
+	}
+
+	clearHistory() {
+		return <Menu.Item key="clearHistory">清空历史记录</Menu.Item>;
+	}
+
+	clone() {
+		return <Menu.Item key="clone">拷贝</Menu.Item>;
+	}
+
+	delete() {
+		return <Menu.Item key="delete">删除</Menu.Item>;
+	}
+
+	minifyShaders() {
+		return <Menu.Item key="minifyShaders">压缩着色器</Menu.Item>;
+	}
+
+	fixColorMaps() {
+		return <Menu.Item key="fixColorMaps">修复颜色贴图</Menu.Item>;
+	}
 }
+
+type RunItemName =
+	| 'redo'
+	| 'undo'
+	| 'clearHistory'
+	| 'clone'
+	| 'delete'
+	| 'minifyShaders'
+	| 'fixColorMaps';

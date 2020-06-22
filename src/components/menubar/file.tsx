@@ -1,147 +1,101 @@
 import React from 'react';
 import { Upload, Button, Menu } from 'antd';
 
-let i = 0;
-
 export class MenubarFile {
-	newFile: () => any;
-	importFile: () => any;
+	runList: RunItemName[];
 	constructor() {
-		this.newFile = () => {
-			return <Menu.Item key={i++}>Option 1</Menu.Item>;
-		};
-
-		this.importFile = () => {
-			return (
-				<Menu.Item key={i++}>
-					<Upload>upload</Upload>
-				</Menu.Item>
-			);
-		};
-
-		// this.exportGeometry();
-		// this.exportObject();
-		// this.exportScene();
-
-		// this.exportDae();
-		// this.exportDrc();
-		// this.exportGlb();
-		// this.exportGltf();
-		// this.exportObj();
-		// this.exportPly();
-		// this.exportPlyBinary();
-		// this.exportStl();
-		// this.exportStlBinary();
+		this.runList = [
+			'newFile',
+			'importFile',
+			'exportGeometry',
+			'exportObject',
+			'exportScene',
+			'exportDae',
+			'exportDrc',
+			'exportGlb',
+			'exportGltf',
+			'exportObj',
+			'exportPly',
+			'exportPlyBinary',
+			'exportStl',
+			'exportStlBinary',
+		];
 	}
 
-	// exportGeometry() {
-	// 	this.list.push({
-	// 		name: '导出几何体',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	newFile() {
+		return <Menu.Item key="newFile">新建</Menu.Item>;
+	}
 
-	// exportObject() {
-	// 	this.list.push({
-	// 		name: '导出物体',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	importFile() {
+		return (
+			<Menu.Item key="importFile">
+				导入
+				<Upload></Upload>
+			</Menu.Item>
+		);
+	}
 
-	// exportScene() {
-	// 	this.list.push({
-	// 		name: '导出场景',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportGeometry() {
+		return <Menu.Item key="exportGeometry">导出几何体</Menu.Item>;
+	}
 
-	// exportDae() {
-	// 	this.list.push({
-	// 		name: '导出DAE',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportObject() {
+		return <Menu.Item key="exportObject">导出物体</Menu.Item>;
+	}
 
-	// exportDrc() {
-	// 	this.list.push({
-	// 		name: '导出DRC',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportScene() {
+		return <Menu.Item key="exportScene">导出场景</Menu.Item>;
+	}
 
-	// exportGlb() {
-	// 	this.list.push({
-	// 		name: '导出GLB',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportDae() {
+		return <Menu.Item key="exportDae">导出DAE</Menu.Item>;
+	}
 
-	// exportGltf() {
-	// 	this.list.push({
-	// 		name: '导出GLTF',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportDrc() {
+		return <Menu.Item key="exportDrc">导出DRC</Menu.Item>;
+	}
 
-	// exportObj() {
-	// 	this.list.push({
-	// 		name: '导出OBJ',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportGlb() {
+		return <Menu.Item key="exportGlb">导出GLB</Menu.Item>;
+	}
 
-	// exportPly() {
-	// 	this.list.push({
-	// 		name: '导出PLY',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportGltf() {
+		return <Menu.Item key="exportGltf">导出GLTF</Menu.Item>;
+	}
 
-	// exportPlyBinary() {
-	// 	this.list.push({
-	// 		name: '导出PLY(二进制)',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportObj() {
+		return <Menu.Item key="exportObj">导出OBJ</Menu.Item>;
+	}
 
-	// exportStl() {
-	// 	this.list.push({
-	// 		name: '导出STL',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportPly() {
+		return <Menu.Item key="exportPly">导出PLY</Menu.Item>;
+	}
 
-	// exportStlBinary() {
-	// 	this.list.push({
-	// 		name: '导出STL(二进制)',
-	// 		type: 'button',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportPlyBinary() {
+		return <Menu.Item key="exportPlyBinary">导出PLY(二进制)</Menu.Item>;
+	}
 
-	// addDivider() {
-	// 	this.list.push({
-	// 		name: '',
-	// 		type: 'divider',
-	// 		onClick: () => {},
-	// 	});
-	// }
+	exportStl() {
+		return <Menu.Item key="exportStl">导出STL</Menu.Item>;
+	}
+
+	exportStlBinary() {
+		return <Menu.Item key="exportStlBinary">导出STL(二进制)</Menu.Item>;
+	}
 }
 
-interface ListItem {
-	name: string;
-	type: string;
-	value: any;
-	onClick: () => void;
-}
+type RunItemName =
+	| 'newFile'
+	| 'importFile'
+	| 'exportGeometry'
+	| 'exportObject'
+	| 'exportScene'
+	| 'exportDae'
+	| 'exportDrc'
+	| 'exportGlb'
+	| 'exportGltf'
+	| 'exportObj'
+	| 'exportPly'
+	| 'exportPlyBinary'
+	| 'exportStl'
+	| 'exportStlBinary';

@@ -1,42 +1,43 @@
 import React from 'react';
-import { Menu, Upload } from 'antd';
+import { Menu } from 'antd';
 import classnames from 'classnames';
 import _ from 'lodash';
 
 import { MenubarFile } from './file';
+import { MenubarAdd } from './add';
+import { MenubarEdit } from './edit';
+import { MenubarExample } from './example';
+import { MenubarHelp } from './help';
 import styles from './index.less';
 
 const { SubMenu } = Menu;
 
 export function Menubar() {
-	const files = new MenubarFile();
-	const menus = _.keys(files).map(key => files['newFile']());
+	const file = new MenubarFile();
+	const add = new MenubarAdd();
+	const edit = new MenubarEdit();
+	const example = new MenubarExample();
+	const help = new MenubarHelp();
 	return (
-		<Menu mode="horizontal" theme="dark" className={classnames(styles.menu)}>
-			<SubMenu title="文件">{menus}</SubMenu>
-			<SubMenu title="Navigation Three - Submenu">
-				<Menu.Item key="setting:1">Option 1</Menu.Item>
-				<Menu.Item key="setting:2">Option 2</Menu.Item>
-				<Menu.Item key="setting:3">Option 3</Menu.Item>
-				<Menu.Item key="setting:4">Option 4</Menu.Item>
+		<Menu
+			mode="horizontal"
+			theme="dark"
+			defaultOpenKeys={['file']}
+			className={classnames(styles.menu)}>
+			<SubMenu title="文件" key="file">
+				{_.map(file.runList, item => file[item]())}
 			</SubMenu>
-			<SubMenu title="Navigation Three - Submenu">
-				<Menu.Item key="setting:1">Option 1</Menu.Item>
-				<Menu.Item key="setting:2">Option 2</Menu.Item>
-				<Menu.Item key="setting:3">Option 3</Menu.Item>
-				<Menu.Item key="setting:4">Option 4</Menu.Item>
+			<SubMenu title="编辑" key="edit">
+				{_.map(edit.runList, item => edit[item]())}
 			</SubMenu>
-			<SubMenu title="Navigation Three - Submenu">
-				<Menu.Item key="setting:1">Option 1</Menu.Item>
-				<Menu.Item key="setting:2">Option 2</Menu.Item>
-				<Menu.Item key="setting:3">Option 3</Menu.Item>
-				<Menu.Item key="setting:4">Option 4</Menu.Item>
+			<SubMenu title="添加" key="add">
+				{_.map(add.runList, item => add[item]())}
 			</SubMenu>
-			<SubMenu title="Navigation Three - Submenu">
-				<Menu.Item key="setting:1">Option 1</Menu.Item>
-				<Menu.Item key="setting:2">Option 2</Menu.Item>
-				<Menu.Item key="setting:3">Option 3</Menu.Item>
-				<Menu.Item key="setting:4">Option 4</Menu.Item>
+			<SubMenu title="示例" key="example">
+				{_.map(example.runList, item => example[item]())}
+			</SubMenu>
+			<SubMenu title="帮助" key="help">
+				{_.map(help.runList, item => help[item]())}
 			</SubMenu>
 		</Menu>
 	);
