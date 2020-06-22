@@ -30,9 +30,8 @@ jobs:
 
             # 部署到 Github page
             - name: Deploy
-              uses: JamesIves/github-pages-deploy-action@releases/v2
+              uses: JamesIves/github-pages-deploy-action@releases/v3
               with:
-                  # ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-                  ACCESS_TOKEN: 72a96e64bb0bac92300f07756466722fc22cc01e
+                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
                   BRANCH: gh-pages
                   FOLDER: dist
