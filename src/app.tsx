@@ -6,18 +6,23 @@ import 'antd/dist/antd.css';
 
 import { Menubar } from './components/menubar';
 import { Sidebar } from './components/sidebar';
+import { Viewport } from './components/viewport';
+import { Editor } from './components/editor/editor';
 import styles from './app.less';
 
 const { Header, Sider, Content } = Layout;
 
 function App() {
+	const editor = new Editor();
 	return (
 		<Layout style={{ height: '100%' }}>
 			<Header>
 				<Menubar />
 			</Header>
 			<Layout>
-				<Content>Content</Content>
+				<Content>
+					<Viewport editor={editor} />
+				</Content>
 				<Sider theme="light" width="300" className={classnames(styles.side_bar)}>
 					<Sidebar />
 				</Sider>

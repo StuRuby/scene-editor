@@ -73,7 +73,7 @@ export class Editor {
     // Object Api
     // ---------------------------------------------------------------------------
 
-    addObject(object: THREE.Object3D, params: { parent?: THREE.Object3D, index?: number } = {}) {
+    addObject(object: THREE.Object3D | THREE.Mesh, params: { parent?: THREE.Object3D, index?: number } = {}) {
         const { parent, index } = params;
         object.traverse(child => {
             if((child as THREE.Mesh).geometry !== undefined) {
