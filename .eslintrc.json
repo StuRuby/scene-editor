@@ -12,7 +12,8 @@
         "sourceType": "module"
     },
     "plugins": [
-        "prettier"
+        "prettier",
+        "react-hooks"
     ],
     "root": true,
     "rules": {
@@ -22,7 +23,9 @@
             {
                 "usePrettierrc": false
             }
-        ]
+        ],
+        "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则
+        "react-hooks/exhaustive-deps": "warn" // 检查 effect 的依赖
     },
     "parser": "babel-eslint"
 }
