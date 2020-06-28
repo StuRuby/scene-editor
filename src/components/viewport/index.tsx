@@ -1,5 +1,5 @@
 import React from 'react';
-import THREE from 'three';
+import * as THREE from 'three';
 
 import { Editor } from '@src/components/editor/editor';
 import { EditorSignals } from '@src/components/editor/signals';

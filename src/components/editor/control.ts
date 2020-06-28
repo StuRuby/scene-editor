@@ -1,6 +1,6 @@
-import THREE from 'three';
+import * as THREE from "three";
 
-import { STATE } from './interface';
+import { STATE } from "./interface";
 
 export class EditorControl extends THREE.EventDispatcher {
     enabled: boolean;
@@ -21,7 +21,7 @@ export class EditorControl extends THREE.EventDispatcher {
     private prevTouchDistance!: number;
     private spherical: THREE.Spherical;
     private sphere: THREE.Sphere;
-    private changeEvent: { type: 'change' };
+    private changeEvent: { type: "change" };
     private container: HTMLElement;
     private object: THREE.Object3D;
     constructor(object: THREE.Object3D, dom: HTMLElement) {
@@ -45,10 +45,18 @@ export class EditorControl extends THREE.EventDispatcher {
         this.prevPointer = new THREE.Vector2();
         this.spherical = new THREE.Spherical();
         this.sphere = new THREE.Sphere();
-        this.touches = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
-        this.prevTouches = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+        this.touches = [
+            new THREE.Vector3(),
+            new THREE.Vector3(),
+            new THREE.Vector3(),
+        ];
+        this.prevTouches = [
+            new THREE.Vector3(),
+            new THREE.Vector3(),
+            new THREE.Vector3(),
+        ];
 
-        this.changeEvent = { type: 'change' };
+        this.changeEvent = { type: "change" };
 
         // 绑定`this`
         this.onTouchStart = this.onTouchStart.bind(this);
@@ -59,12 +67,12 @@ export class EditorControl extends THREE.EventDispatcher {
         this.onMouseMove = this.onMouseMove.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
 
-        dom.addEventListener('touchstart', this.onTouchStart, false);
-        dom.addEventListener('touchmove', this.onTouchMove, false);
+        dom.addEventListener("touchstart", this.onTouchStart, false);
+        dom.addEventListener("touchmove", this.onTouchMove, false);
 
-        dom.addEventListener('contextmenu', this.onContextMenu, false);
-        dom.addEventListener('mousedown', this.onMouseDown, false);
-        dom.addEventListener('wheel', this.onMouseWheel, false);
+        dom.addEventListener("contextmenu", this.onContextMenu, false);
+        dom.addEventListener("mousedown", this.onMouseDown, false);
+        dom.addEventListener("wheel", this.onMouseWheel, false);
     }
 
     onTouchStart(evt: TouchEvent) {
@@ -74,34 +82,18 @@ export class EditorControl extends THREE.EventDispatcher {
             case 1:
                 // 区分高清屏
                 this.touches[0]
-                    .set(
-                        evt.touches[0].pageX,
-                        evt.touches[0].pageY,
-                        0
-                    )
+                    .set(evt.touches[0].pageX, evt.touches[0].pageY, 0)
                     .divideScalar(window.devicePixelRatio);
                 this.touches[1]
-                    .set(
-                        evt.touches[0].pageX,
-                        evt.touches[0].pageY,
-                        0
-                    )
+                    .set(evt.touches[0].pageX, evt.touches[0].pageY, 0)
                     .divideScalar(window.devicePixelRatio);
                 break;
             case 2:
                 this.touches[0]
-                    .set(
-                        evt.touches[0].pageX,
-                        evt.touches[0].pageY,
-                        0
-                    )
+                    .set(evt.touches[0].pageX, evt.touches[0].pageY, 0)
                     .divideScalar(window.devicePixelRatio);
                 this.touches[1]
-                    .set(
-                        evt.touches[1].pageX,
-                        evt.touches[1].pageY,
-                        0
-                    )
+                    .set(evt.touches[1].pageX, evt.touches[1].pageY, 0)
                     .divideScalar(window.devicePixelRatio);
                 this.prevTouchDistance = this.touches[0].distanceTo(this.touches[1]);
                 break;
@@ -118,9 +110,12 @@ export class EditorControl extends THREE.EventDispatcher {
         evt.preventDefault();
         evt.stopPropagation();
 
-        const getClosest = (touch: THREE.Vector3, touches: [THREE.Vector3, THREE.Vector3, THREE.Vector3]) => {
+        const getClosest = (
+            touch: THREE.Vector3,
+            touches: [THREE.Vector3, THREE.Vector3, THREE.Vector3]
+        ) => {
             let closest = touches[0];
-            for(let i in touches) {
+            for(const i in touches) {
                 if(closest.distanceTo(touch) > touches[i].distanceTo(touch)) {
                     closest = touches[i];
                 }
@@ -131,52 +126,36 @@ export class EditorControl extends THREE.EventDispatcher {
         switch(evt.touches.length) {
             case 1:
                 this.touches[0]
-                    .set(
-                        evt.touches[0].pageX,
-                        evt.touches[0].pageY,
-                        0
-                    )
+                    .set(evt.touches[0].pageX, evt.touches[0].pageY, 0)
                     .divideScalar(window.devicePixelRatio);
                 this.touches[1]
-                    .set(
-                        evt.touches[0].pageX,
-                        evt.touches[0].pageY,
-                        0
-                    )
+                    .set(evt.touches[0].pageX, evt.touches[0].pageY, 0)
                     .divideScalar(window.devicePixelRatio);
                 this.rotate(
                     this.touches[0]
-                        .sub(
-                            getClosest(this.touches[0], this.prevTouches)
-                        )
+                        .sub(getClosest(this.touches[0], this.prevTouches))
                         .multiplyScalar(-1)
-                )
+                );
                 break;
             case 2:
                 this.touches[0]
-                    .set(
-                        evt.touches[0].pageX,
-                        evt.touches[0].pageY,
-                        0
-                    )
+                    .set(evt.touches[0].pageX, evt.touches[0].pageY, 0)
                     .divideScalar(window.devicePixelRatio);
                 this.touches[1]
-                    .set(
-                        evt.touches[1].pageX,
-                        evt.touches[1].pageY,
-                        0
-                    )
+                    .set(evt.touches[1].pageX, evt.touches[1].pageY, 0)
                     .divideScalar(window.devicePixelRatio);
 
                 const distance = this.touches[0].distanceTo(this.touches[1]);
-                this.zoom(
-                    this.delta.set(0, 0, this.prevTouchDistance - distance)
-                );
+                this.zoom(this.delta.set(0, 0, this.prevTouchDistance - distance));
                 this.prevTouchDistance = distance;
 
-                const offset0 = this.touches[0].clone().sub(getClosest(this.touches[0], this.prevTouches));
-                const offset1 = this.touches[1].clone().sub(getClosest(this.touches[1], this.prevTouches));
-                offset0.x = - offset0.x;
+                const offset0 = this.touches[0]
+                    .clone()
+                    .sub(getClosest(this.touches[0], this.prevTouches));
+                const offset1 = this.touches[1]
+                    .clone()
+                    .sub(getClosest(this.touches[1], this.prevTouches));
+                offset0.x = -offset0.x;
                 offset1.x = -offset1.x;
 
                 this.pan(offset0.add(offset1));
@@ -213,18 +192,16 @@ export class EditorControl extends THREE.EventDispatcher {
 
         this.prevPointer.set(evt.clientX, evt.clientY);
 
-        this.container.addEventListener('mousemove', this.onMouseMove, false);
-        this.container.addEventListener('mouseup', this.onMouseUp, false);
-        this.container.addEventListener('mouseout', this.onMouseUp, false);
-        this.container.addEventListener('dblclick', this.onMouseUp, false);
+        this.container.addEventListener("mousemove", this.onMouseMove, false);
+        this.container.addEventListener("mouseup", this.onMouseUp, false);
+        this.container.addEventListener("mouseout", this.onMouseUp, false);
+        this.container.addEventListener("dblclick", this.onMouseUp, false);
     }
 
     onMouseWheel(evt: WheelEvent) {
         evt.preventDefault();
         const z = evt.deltaY > 0 ? 1 : -1;
-        this.zoom(
-            this.delta.set(0, 0, z)
-        );
+        this.zoom(this.delta.set(0, 0, z));
     }
 
     onMouseMove(evt: MouseEvent) {
@@ -235,18 +212,17 @@ export class EditorControl extends THREE.EventDispatcher {
         const movementX = this.pointer.x - this.prevPointer.x;
         const movementY = this.pointer.y - this.prevPointer.y;
 
-        if(this.state === STATE.ROTATE) {
-
-        }
+        // if(this.state === STATE.ROTATE) {
+        // }
 
         this.prevPointer.set(evt.clientX, evt.clientY);
     }
 
     onMouseUp(evt: MouseEvent) {
-        this.container.removeEventListener('mousemove', this.onMouseMove, false);
-        this.container.removeEventListener('mouseup', this.onMouseUp, false);
-        this.container.removeEventListener('mouseout', this.onMouseUp, false);
-        this.container.removeEventListener('dblclick', this.onMouseUp, false);
+        this.container.removeEventListener("mousemove", this.onMouseMove, false);
+        this.container.removeEventListener("mouseup", this.onMouseUp, false);
+        this.container.removeEventListener("mouseout", this.onMouseUp, false);
+        this.container.removeEventListener("dblclick", this.onMouseUp, false);
 
         this.state = STATE.NONE;
     }
@@ -285,7 +261,9 @@ export class EditorControl extends THREE.EventDispatcher {
         const distance = this.object.position.distanceTo(this.center);
         // 计算拖拽后的`delta`值
         this.delta.multiplyScalar(distance * this.panSpeed);
-        this.delta.applyMatrix3(this.normalMatrix.getNormalMatrix(this.object.matrix));
+        this.delta.applyMatrix3(
+            this.normalMatrix.getNormalMatrix(this.object.matrix)
+        );
 
         this.object.position.add(this.delta);
         this.center.add(this.delta);
@@ -299,7 +277,9 @@ export class EditorControl extends THREE.EventDispatcher {
 
         if(this.delta.length() > distance) return;
 
-        this.delta.applyMatrix3(this.normalMatrix.getNormalMatrix(this.object.matrix));
+        this.delta.applyMatrix3(
+            this.normalMatrix.getNormalMatrix(this.object.matrix)
+        );
         this.object.position.add(this.delta);
 
         this.dispatchEvent(this.changeEvent);
@@ -313,7 +293,7 @@ export class EditorControl extends THREE.EventDispatcher {
         // `phi`:原点到目标点的连线与正z轴之间的极角，在地理坐标系中表示纬度
         // https://zh.wikipedia.org/wiki/%E7%90%83%E5%BA%A7%E6%A8%99%E7%B3%BB#%E5%9C%B0%E7%90%86%E5%BA%A7%E6%A8%99%E7%B3%BB
         this.spherical.setFromVector3(this.vector);
-        // 计算旋转后球坐标的x值 
+        // 计算旋转后球坐标的x值
         this.spherical.theta += this.delta.x * this.rotationSpeed;
         // 计算旋转后球坐标的y值
         this.spherical.phi += this.delta.y * this.rotationSpeed;
@@ -329,18 +309,20 @@ export class EditorControl extends THREE.EventDispatcher {
     }
 
     dispose() {
-        this.container.removeEventListener('contextmenu', this.onContextMenu, false);
-        this.container.removeEventListener('mousedown', this.onMouseDown, false);
-        this.container.removeEventListener('wheel', this.onMouseWheel, false);
+        this.container.removeEventListener(
+            "contextmenu",
+            this.onContextMenu,
+            false
+        );
+        this.container.removeEventListener("mousedown", this.onMouseDown, false);
+        this.container.removeEventListener("wheel", this.onMouseWheel, false);
 
-        this.container.removeEventListener('mousemove', this.onMouseMove, false);
-        this.container.removeEventListener('mouseup', this.onMouseUp, false);
-        this.container.removeEventListener('mouseout', this.onMouseUp, false);
-        this.container.removeEventListener('dblclick', this.onMouseUp, false);
+        this.container.removeEventListener("mousemove", this.onMouseMove, false);
+        this.container.removeEventListener("mouseup", this.onMouseUp, false);
+        this.container.removeEventListener("mouseout", this.onMouseUp, false);
+        this.container.removeEventListener("dblclick", this.onMouseUp, false);
 
-        this.container.removeEventListener('touchstart', this.onTouchStart, false);
-        this.container.removeEventListener('touchmove', this.onTouchMove, false);
+        this.container.removeEventListener("touchstart", this.onTouchStart, false);
+        this.container.removeEventListener("touchmove", this.onTouchMove, false);
     }
-
-
 }

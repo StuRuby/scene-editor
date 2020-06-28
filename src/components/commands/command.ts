@@ -1,4 +1,4 @@
-import THREE from 'three';
+import * as THREE from "three";
 import { Editor } from '@src/components/editor/editor';
 
 export class Command {

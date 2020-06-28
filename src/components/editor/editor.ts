@@ -1,9 +1,10 @@
-import THREE from 'three';
-import _ from 'lodash';
+import * as THREE from 'three';
+import * as  _ from 'lodash';
 
 import { EditorSignals } from './signals';
 import { Geometries, Materials, Textures, Helpers, Cameras, Helper } from './interface';
-import { threadId } from 'worker_threads';
+
+console.log('PerspectiveCamera', THREE.PerspectiveCamera);
 
 const DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.01, 1000);
 DEFAULT_CAMERA.name = 'Camera';
@@ -73,7 +74,7 @@ export class Editor {
     // Object Api
     // ---------------------------------------------------------------------------
 
-    addObject(object: THREE.Object3D | THREE.Mesh, params: { parent?: THREE.Object3D, index?: number } = {}) {
+    addObject(object: THREE.Object3D | THREE.Mesh, params: { parent?: THREE.Object3D; index?: number } = {}) {
         const { parent, index } = params;
         object.traverse(child => {
             if((child as THREE.Mesh).geometry !== undefined) {

@@ -1,4 +1,4 @@
-import THREE from 'three';
+import * as THREE from "three";
 import { ThreeMFLoader } from 'three/examples/jsm/loaders/3MFLoader';
 import { AMFLoader } from 'three/examples/jsm/loaders/AMFLoader';
 import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader';
