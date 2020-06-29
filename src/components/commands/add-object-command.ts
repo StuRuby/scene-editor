@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { Editor } from '@src/components/editor/editor';
+import { Editor } from '../editor/editor';
 import { Command, ObjectJson } from './command';
 
 

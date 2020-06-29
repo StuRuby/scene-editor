@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 
-import { Editor } from '@src/components/editor/editor';
-import { EditorSignals } from '@src/components/editor/signals';
+import { Editor } from '../editor/editor';
+import { EditorSignals } from '../editor/signals';
 import { ViewportInfo } from './info';
+import { ViewportEditor } from './viewport';
 
 export function Viewport(props: Props) {
 	return (
 		<div style={{ background: 'gray', height: '100%' }}>
-			This is a Viewport
+			<ViewportEditor />
 			<ViewportInfo />
 		</div>
 	);

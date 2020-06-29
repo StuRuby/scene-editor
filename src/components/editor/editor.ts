@@ -4,8 +4,6 @@ import * as  _ from 'lodash';
 import { EditorSignals } from './signals';
 import { Geometries, Materials, Textures, Helpers, Cameras, Helper } from './interface';
 
-console.log('PerspectiveCamera', THREE.PerspectiveCamera);
-
 const DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 0.01, 1000);
 DEFAULT_CAMERA.name = 'Camera';
 DEFAULT_CAMERA.position.set(0, 5, 10);

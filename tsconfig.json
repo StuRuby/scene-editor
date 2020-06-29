@@ -15,11 +15,7 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "baseUrl": "./",
-    "paths": {
-      "@src/*": [
-        "./src/*",
-      ],
-    },
+    "paths": {},
     "types": [
       "node"
     ],
