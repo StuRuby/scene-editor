@@ -10,11 +10,6 @@ import commonWebpackConfig from './webpack.base.config';
 const prodConfig: webpack.Configuration = merge(commonWebpackConfig, {
     mode: 'production',
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('prod')
-            }
-        }),
         new CleanWebpackPlugin({
             verbose: true,
             dry: false,

@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { RecoilRoot } from 'recoil';
@@ -36,4 +37,6 @@ function App() {
 	);
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const Root = process.env.NODE_ENV === 'development' ? hot(App) : App
+
+ReactDOM.render(<Root />, document.getElementById('root'));
