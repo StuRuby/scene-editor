@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu } from 'antd';
 import classnames from 'classnames';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 import { MenubarFile } from './file';
 import { MenubarAdd } from './add';

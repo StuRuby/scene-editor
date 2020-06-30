@@ -1,4 +1,4 @@
-import THREE from 'three';
+import * as THREE from "three";
 
 export interface Geometries {
     [id: string]: THREE.Geometry | THREE.BufferGeometry;

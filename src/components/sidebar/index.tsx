@@ -3,14 +3,15 @@ import { Tabs } from 'antd';
 
 import { SidebarSettings } from './settings';
 import { SidebarProject } from './project';
+import { SidebarScene } from './scene';
 
 const { TabPane } = Tabs;
 
 export function Sidebar() {
 	return (
-		<Tabs defaultActiveKey="settings" type="card">
+		<Tabs defaultActiveKey="scene" type="card">
 			<TabPane tab="场景" key="scene">
-				Content of Tab Pane 1
+				<SidebarScene />
 			</TabPane>
 			<TabPane tab="项目" key="project">
 				<SidebarProject />

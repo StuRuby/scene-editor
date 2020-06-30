@@ -1,28 +1,35 @@
 {
     "env": {
         "es6": true,
+        "browser": true,
         "node": true
     },
     "extends": [
         "eslint:recommended",
-        "plugin:prettier/recommended"
+        "plugin:@typescript-eslint/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "plugins": [
-        "prettier"
+        "react-hooks",
+        "@typescript-eslint"
     ],
     "root": true,
     "rules": {
-        "prettier/prettier": [
+        "no-case-declarations": 0,
+        "@typescript-eslint/consistent-type-assertions": 0,
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/no-unused-vars": 0,
+        "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则
+        "react-hooks/exhaustive-deps": [
             "warn",
-            {},
             {
-                "usePrettierrc": false
+                "additionalHooks": "useRecoilCallback"
             }
-        ]
+        ] // 检查 effect 的依赖
     },
-    "parser": "babel-eslint"
+    "parser": "@typescript-eslint/parser"
 }
