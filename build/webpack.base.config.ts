@@ -2,11 +2,14 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
+const isDev = process.env.NODE_ENV === 'development'
+
 const config: webpack.Configuration = {
     context: __dirname,
-    entry: {
-        app: '../src/app.tsx'
-    },
+    entry: isDev ? [
+        'react-hot-loader/patch',
+        '../src/app.tsx'
+    ] : ['../src/app.tsx'],
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: 'js/editor-[name].js'
@@ -18,10 +21,16 @@ const config: webpack.Configuration = {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                exclude: [
-                    path.resolve(__dirname, '../node_modules')
-                ],
-                use: 'ts-loader'
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: isDev ? {
+                            'plugins': ['react-hot-loader/babel']
+                        } : {}
+                    },
+                    'ts-loader'
+                ]
             },
             {
                 test: /\.css$/,
@@ -75,7 +84,12 @@ const config: webpack.Configuration = {
         })
     ],
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json']
+        extensions: ['.ts', '.tsx', '.js', '.json'],
+        alias: {
+            ...(isDev ? {
+                'react-dom': '@hot-loader/react-dom'
+            } : {})
+        }
     },
     optimization: {
         splitChunks: {
