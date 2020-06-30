@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import Happypack from 'happypack';
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -23,20 +24,9 @@ const config: webpack.Configuration = {
             {
                 test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: isDev ? {
-                            'plugins': ['react-hot-loader/babel']
-                        } : {}
-                    },
-                    {
-                        loader: 'ts-loader',
-                        options: {
-                            transpileOnly: true
-                        }
-                    }
-                ]
+                use: {
+                    loader: 'happypack/loader?id=tsx'
+                }
             },
             {
                 test: /\.css$/,
@@ -101,6 +91,24 @@ const config: webpack.Configuration = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
+        }),
+        new Happypack({
+            id: 'tsx',
+            loaders: [
+                {
+                    loader: 'babel-loader',
+                    options: isDev ? {
+                        'plugins': ['react-hot-loader/babel']
+                    } : {}
+                },
+                {
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true,
+                        happyPackMode: true
+                    }
+                }
+            ]
         })
     ],
     resolve: {
