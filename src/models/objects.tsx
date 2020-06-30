@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import * as THREE from 'three';
 import { createModel } from 'hox';
 
-function useObjects() {
-	const [objects, setObjects] = useState<Objects>({});
+function useSelectedObjects() {
+	const [objects, setObjects] = useState<Objects | null>(null);
 	return {
 		objects,
 		setObjects,
 	};
 }
 
-export default createModel(useObjects);
+export default createModel(useSelectedObjects);
 
 interface Objects {
 	type?: string;
@@ -42,4 +42,5 @@ interface Objects {
 	castShadow?: boolean;
 	receiveShadow?: boolean;
 	shadow?: boolean;
+	userdata?: any;
 }
