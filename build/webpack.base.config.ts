@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -35,14 +36,24 @@ const config: webpack.Configuration = {
             {
                 test: /\.css$/,
                 use: [
-                    'style-loader',
-                    'css-loader',
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: isDev
+                        },
+                    },
+                    'css-loader'
                 ]
             },
             {
                 test: /\.less$/,
                 use: [
-                    'style-loader',
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: isDev
+                        },
+                    },
                     {
                         loader: 'css-loader',
                         options: {
@@ -81,6 +92,10 @@ const config: webpack.Configuration = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../public/index.html')
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css'
         })
     ],
     resolve: {
