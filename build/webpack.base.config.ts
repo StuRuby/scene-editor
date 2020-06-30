@@ -30,7 +30,12 @@ const config: webpack.Configuration = {
                             'plugins': ['react-hot-loader/babel']
                         } : {}
                     },
-                    'ts-loader'
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true
+                        }
+                    }
                 ]
             },
             {
