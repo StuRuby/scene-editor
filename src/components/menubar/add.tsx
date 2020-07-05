@@ -1,5 +1,8 @@
 import React from 'react';
 import { Menu } from 'antd';
+import { ClickParam } from 'antd/lib/menu';
+
+import useBox from '../../models/use-box';
 
 export class MenubarAdd {
 	runList: RunItemName[];
@@ -40,7 +43,17 @@ export class MenubarAdd {
 	}
 
 	box() {
-		return <Menu.Item key="box">正方体</Menu.Item>;
+		const { addBox } = useBox();
+		return (
+			<Menu.Item
+				key="box"
+				onClick={() => {
+					alert('x');
+					return addBox();
+				}}>
+				正方体
+			</Menu.Item>
+		);
 	}
 
 	circle() {
@@ -122,6 +135,21 @@ export class MenubarAdd {
 	orthographicCamera() {
 		return <Menu.Item key="orthographicCamera">正交相机</Menu.Item>;
 	}
+}
+
+export function AddBox() {
+	const onClick = (evt: ClickParam) => {
+		console.log(evt);
+	};
+	return (
+		<Menu.Item key="box" onClick={onClick}>
+			正方体
+		</Menu.Item>
+	);
+}
+
+export function AddPlane() {
+	return <Menu.Item key="plane">平面</Menu.Item>;
 }
 
 type RunItemName =

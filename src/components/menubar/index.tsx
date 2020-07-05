@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import * as _ from 'lodash';
 
 import { MenubarFile } from './file';
-import { MenubarAdd } from './add';
+import { MenubarAdd, AddBox, AddPlane } from './add';
 import { MenubarEdit } from './edit';
 import { MenubarExample } from './example';
 import { MenubarHelp } from './help';

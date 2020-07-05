@@ -6,7 +6,7 @@ import { TransformControls } from 'drei';
 import useTransformMode from '../../models/transform';
 import useOrbitMode from '../../models/orbit';
 
-export function TransformControl() {
+export function TransformControl(props: any) {
 	const transform = useRef<TransformControlsImpl>();
 	const transformMode = useTransformMode();
 	const orbitMode = useOrbitMode();
@@ -22,12 +22,5 @@ export function TransformControl() {
 			return () => controls.removeEventListener('dragging-changed', fn);
 		}
 	});
-	return (
-		<TransformControls ref={transform}>
-			<mesh>
-				<boxBufferGeometry attach="geometry" args={[2, 2, 2]} />
-				<meshNormalMaterial attach="material" />
-			</mesh>
-		</TransformControls>
-	);
+	return <TransformControls ref={transform}>{props.children}</TransformControls>;
 }
