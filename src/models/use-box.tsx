@@ -37,8 +37,7 @@ function useBox() {
 	const { selectedUuid } = useSelected();
 
 	const getSelected = () => _.find(boxes, box => box.uuid === selectedUuid);
-	const addBox = (box: BoxModel) => {
-		debugger;
+	const addBox = (box: BoxModel = DEFAULT_BOX) => {
 		return setBoxes([...boxes, { ...DEFAULT_BOX, ...box }]);
 	};
 	const removeBox = (uuid: string) => setBoxes(_.filter(boxes, box => box.uuid === uuid));
