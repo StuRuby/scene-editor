@@ -1,7 +1,8 @@
 import React from 'react';
 import { Card, Tree } from 'antd';
 import styled from 'styled-components';
-import { DownOutlined } from '@ant-design/icons';
+
+import useBox from '../../../models/use-box';
 
 const { TreeNode } = Tree;
 const CardContainer = styled(Card)`
@@ -10,14 +11,12 @@ const CardContainer = styled(Card)`
 `;
 
 export function Outliner() {
+	const { boxes } = useBox();
+	const boxTreeNodes = boxes.map(box => <TreeNode title={box.name} key={box.uuid} />);
 	return (
 		<CardContainer>
 			<Tree defaultExpandAll={true} showLine>
-				<TreeNode title="parent 1-0" key="0-0-0">
-					<TreeNode title="leaf" key="0-0-0-0" />
-					<TreeNode title="leaf" key="0-0-0-1" />
-					<TreeNode title="leaf" key="0-0-0-2" />
-				</TreeNode>
+				{boxTreeNodes}
 				<TreeNode title="parent 1-1" key="0-0-1"></TreeNode>
 				<TreeNode title="parent 1-2" key="0-0-2">
 					<TreeNode title="leaf" key="0-0-2-0" />
