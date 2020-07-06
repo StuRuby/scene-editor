@@ -16,6 +16,7 @@ export function TransformControl(props: any) {
 			const controls = transform.current;
 			controls.setMode(transformMode.mode);
 			const fn = (event: THREE.Event) => {
+				console.log(event, 'event');
 				orbitMode.setOrbitEnabled(!event.value);
 			};
 			controls.addEventListener('dragging-changed', fn);

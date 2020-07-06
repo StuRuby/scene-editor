@@ -34,16 +34,16 @@ export function Box(props: Props) {
 			frustumCulled={frustumCulled}
 			castShadow={castShadow}>
 			<boxBufferGeometry
-				uuid={geometry.uuid}
-				name={geometry.name}
+				uuid={geometry?.uuid}
+				name={geometry?.name}
 				attach="geometry"
 				args={[
-					geometry.width,
-					geometry.height,
-					geometry.depth,
-					geometry.widthSegments,
-					geometry.heightSegments,
-					geometry.depthSegments,
+					geometry?.width,
+					geometry?.height,
+					geometry?.depth,
+					geometry?.widthSegments,
+					geometry?.heightSegments,
+					geometry?.depthSegments,
 				]}
 			/>
 			<meshStandardMaterial attach="material" color="hotpink" transparent />

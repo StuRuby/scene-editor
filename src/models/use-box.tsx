@@ -53,17 +53,17 @@ function useBox() {
 export default createModel(useBox);
 
 export interface BoxModel {
-	type: 'Mesh';
+	type?: 'Mesh';
 	uuid: string;
-	name: string;
-	position: THREE.Vector3;
-	rotation: THREE.Euler;
-	scale: THREE.Vector3;
-	visible: boolean;
-	frustumCulled: boolean;
-	castShadow: boolean;
-	userData: any;
-	geometry: BoxGeometryModel;
+	name?: string;
+	position?: THREE.Vector3;
+	rotation?: THREE.Euler;
+	scale?: THREE.Vector3;
+	visible?: boolean;
+	frustumCulled?: boolean;
+	castShadow?: boolean;
+	userData?: any;
+	geometry?: BoxGeometryModel;
 	material?: BoxMaterialModel;
 }
 

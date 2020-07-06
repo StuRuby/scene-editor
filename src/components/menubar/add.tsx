@@ -1,4 +1,5 @@
 import React from 'react';
+import * as THREE from 'three';
 
 import useBox from '../../models/use-box';
 
@@ -15,7 +16,7 @@ export function AddBox() {
 
 	const onClick = (evt: React.MouseEvent) => {
 		alert('x');
-		addBox();
+		addBox({ uuid: THREE.MathUtils.generateUUID() });
 	};
 	return <div onClick={onClick}>添加box</div>;
 }
