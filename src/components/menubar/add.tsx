@@ -14,8 +14,7 @@ export function AddPlane() {
 export function AddBox() {
 	const { addBox } = useBox();
 
-	const onClick = (evt: React.MouseEvent) => {
-		alert('x');
+	const onClick = () => {
 		addBox({ uuid: THREE.MathUtils.generateUUID() });
 	};
 	return <div onClick={onClick}>添加box</div>;
