@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as THREE from 'three';
 import * as _ from 'lodash';
+import { createModel } from 'hox';
 
 function useObjectList() {
 	const [objectList, setObjectList] = useState<THREE.Object3D[]>();
@@ -16,5 +17,11 @@ function useObjectList() {
 		return setObjectList(list);
 	};
 
-	const moveObject = (object: THREE.Object3D) => {};
+	return {
+		objectList,
+		addObject,
+		removeObject,
+	};
 }
+
+export default createModel(useObjectList);
