@@ -17,7 +17,7 @@ export function AddBox() {
 	const onClick = () => {
 		addBox({ uuid: THREE.MathUtils.generateUUID() });
 	};
-	return <div onClick={onClick}>添加box</div>;
+	return <div onClick={onClick}>box</div>;
 }
 
 export function AddCircle() {
