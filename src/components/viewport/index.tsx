@@ -6,12 +6,14 @@ import { Editor } from '../editor/editor';
 import { EditorSignals } from '../editor/signals';
 import { ViewportInfo } from './info';
 import { ViewportEditor } from './viewport';
+import { ViewportToolbar } from './toolbar';
 
 export function Viewport(props: Props) {
 	return (
 		<div style={{ background: 'gray', height: '100%' }}>
 			<ViewportEditor />
 			<ViewportInfo />
+			<ViewportToolbar />
 		</div>
 	);
 }

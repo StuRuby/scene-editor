@@ -1,13 +1,14 @@
 import React from 'react';
 import * as THREE from 'three';
 import * as _ from 'lodash';
+import {} from 'react-three-fiber';
 
 import { TransformControl } from './transform-controls';
 import { BoxModel } from '../../models/use-box';
 import useSelected from '../../models/use-selected';
 
 export function Box(props: Props) {
-	const { selectedUuid } = useSelected();
+	const { selectedUuid, setSelected } = useSelected();
 
 	const {
 		uuid,

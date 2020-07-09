@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card, Tree } from 'antd';
-
 import styled from 'styled-components';
 
 import useBox from '../../../models/use-box';
@@ -14,7 +13,7 @@ const CardContainer = styled(Card)`
 
 export function Outliner() {
 	const { boxes } = useBox();
-	const { setSelected } = useSelected();
+	const { selectedUuid, setSelected } = useSelected();
 	const onSelect = (keys: React.Key[], info: any) => {
 		const selected = keys[0] as string;
 		setSelected(selected);
@@ -22,7 +21,11 @@ export function Outliner() {
 	const boxTreeNodes = boxes.map(box => <TreeNode title={box.name} key={box.uuid} />);
 	return (
 		<CardContainer>
-			<Tree defaultExpandAll={true} showLine onSelect={onSelect}>
+			<Tree
+				defaultExpandAll={true}
+				selectedKeys={selectedUuid ? [selectedUuid] : []}
+				showLine
+				onSelect={onSelect}>
 				{boxTreeNodes}
 			</Tree>
 		</CardContainer>
