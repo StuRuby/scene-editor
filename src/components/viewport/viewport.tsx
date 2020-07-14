@@ -1,20 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import * as THREE from 'three';
 import { useThree } from 'react-three-fiber';
 import { OrbitControls } from 'drei';
 
 import useOrbitMode from '../../models/orbit';
 import useSelected from '../../models/use-selected';
-import useObjectList from '../../models/object-list';
+import objectList from '../../models/object-list';
 import { getMousePosition } from '../../utils/dom';
 // TODO
 import { BoxList } from '../three/box-list';
 
 export function ViewportEditor() {
 	const orbitMode = useOrbitMode();
-	const { objects } = useObjectList();
-	const { selectedUuid, setSelected } = useSelected();
-	const { gl, scene, camera } = useThree();
+	const { setSelected } = useSelected();
+
+	const { gl, camera } = useThree();
 
 	const onDownPosition = new THREE.Vector2();
 	const onUpPosition = new THREE.Vector2();
@@ -34,8 +34,7 @@ export function ViewportEditor() {
 			const array = getMousePosition(dom, evt.clientX, evt.clientY);
 			onUpPosition.fromArray(array);
 			if (onDownPosition.distanceTo(onUpPosition) === 0) {
-				const intersects = getIntersects(onUpPosition, objects);
-
+				const intersects = getIntersects(onUpPosition, objectList.objects);
 				if (intersects.length > 0) {
 					const object = intersects[0].object;
 					const uuid = object.uuid;
@@ -57,7 +56,9 @@ export function ViewportEditor() {
 		}
 
 		dom.addEventListener('mousedown', onMouseDown, false);
-	});
+
+		return () => dom.removeEventListener('mousedown', onMouseDown, false);
+	}, []);
 
 	return (
 		<>
