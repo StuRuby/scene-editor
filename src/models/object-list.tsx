@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
 import * as THREE from 'three';
 import * as _ from 'lodash';
-import { createModel } from 'hox';
 
 class ObjectList {
 	objects: THREE.Object3D[];

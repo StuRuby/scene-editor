@@ -49,7 +49,9 @@ export function Box(props: Props) {
 			rotation={rotation}
 			scale={scale}
 			frustumCulled={frustumCulled}
-			castShadow={castShadow}>
+			castShadow={castShadow}
+			dispose={null}
+		>
 			<boxBufferGeometry
 				uuid={geometry?.uuid}
 				name={geometry?.name}
@@ -67,7 +69,7 @@ export function Box(props: Props) {
 		</mesh>
 	);
 
-	if (selectedUuid === uuid) return <TransformControl>{boxMesh}</TransformControl>;
+	if (selectedUuid === uuid) return <TransformControl >{boxMesh}</TransformControl>;
 	return boxMesh;
 }
 

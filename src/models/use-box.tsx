@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { createModel } from 'hox';
 
 import useSelected from './use-selected';
+import { values } from 'lodash';
 
 const DEFAULT_BOX_GEOMETRY: BoxGeometryModel = {
 	type: 'BoxBufferGeometry',
@@ -41,12 +42,22 @@ function useBox() {
 		return setBoxes([...boxes, { ...DEFAULT_BOX, ...box }]);
 	};
 	const removeBox = (uuid: string) => setBoxes(_.filter(boxes, box => box.uuid === uuid));
+	const updateBox = (uuid: string, box: BoxModel) => {
+		const updatedBoxes = boxes.map(value => {
+			if (value.uuid === uuid) {
+				return { ...value, ...box };
+			}
+			return value;
+		});
+		return setBoxes(updatedBoxes);
+	}
 
 	return {
 		boxes,
 		getSelected,
 		addBox,
 		removeBox,
+		updateBox,
 	};
 }
 
