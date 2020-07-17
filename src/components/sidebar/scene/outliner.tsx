@@ -1,7 +1,9 @@
 import React from 'react';
 import { Card, Tree } from 'antd';
 import styled from 'styled-components';
-import { DownOutlined } from '@ant-design/icons';
+
+import useBox from '../../../models/use-box';
+import useSelected from '../../../models/use-selected';
 
 const { TreeNode } = Tree;
 const CardContainer = styled(Card)`
@@ -10,19 +12,21 @@ const CardContainer = styled(Card)`
 `;
 
 export function Outliner() {
+	const { boxes } = useBox();
+	const { selectedUuid, setSelected } = useSelected();
+	const onSelect = (keys: React.Key[], info: any) => {
+		const selected = keys[0] as string;
+		setSelected(selected);
+	};
+	const boxTreeNodes = boxes.map(box => <TreeNode title={box.name} key={box.uuid} />);
 	return (
 		<CardContainer>
-			<Tree defaultExpandAll={true} showLine>
-				<TreeNode title="parent 1-0" key="0-0-0">
-					<TreeNode title="leaf" key="0-0-0-0" />
-					<TreeNode title="leaf" key="0-0-0-1" />
-					<TreeNode title="leaf" key="0-0-0-2" />
-				</TreeNode>
-				<TreeNode title="parent 1-1" key="0-0-1"></TreeNode>
-				<TreeNode title="parent 1-2" key="0-0-2">
-					<TreeNode title="leaf" key="0-0-2-0" />
-					<TreeNode title="leaf" key="0-0-2-1" />
-				</TreeNode>
+			<Tree
+				defaultExpandAll={true}
+				selectedKeys={selectedUuid ? [selectedUuid] : []}
+				showLine
+				onSelect={onSelect}>
+				{boxTreeNodes}
 			</Tree>
 		</CardContainer>
 	);
