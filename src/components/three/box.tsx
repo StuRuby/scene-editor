@@ -11,7 +11,6 @@ export function Box(props: Props) {
 	const { selectedUuid } = useSelected();
 	const box = useRef<THREE.Object3D>(null);
 
-
 	const {
 		uuid,
 		name,
@@ -69,7 +68,12 @@ export function Box(props: Props) {
 		</mesh>
 	);
 
-	if (selectedUuid === uuid) return <TransformControl >{boxMesh}</TransformControl>;
+	if (selectedUuid === uuid) {
+		return <>
+			<TransformControl ref={box} />
+			{boxMesh}
+		</>
+	}
 	return boxMesh;
 }
 

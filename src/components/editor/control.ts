@@ -76,9 +76,9 @@ export class EditorControl extends THREE.EventDispatcher {
     }
 
     onTouchStart(evt: TouchEvent) {
-        if(this.enabled === false) return;
+        if (this.enabled === false) return;
 
-        switch(evt.touches.length) {
+        switch (evt.touches.length) {
             case 1:
                 // 区分高清屏
                 this.touches[0]
@@ -106,7 +106,7 @@ export class EditorControl extends THREE.EventDispatcher {
     }
 
     onTouchMove(evt: TouchEvent) {
-        if(this.enabled === false) return;
+        if (this.enabled === false) return;
         evt.preventDefault();
         evt.stopPropagation();
 
@@ -115,15 +115,15 @@ export class EditorControl extends THREE.EventDispatcher {
             touches: [THREE.Vector3, THREE.Vector3, THREE.Vector3]
         ) => {
             let closest = touches[0];
-            for(const i in touches) {
-                if(closest.distanceTo(touch) > touches[i].distanceTo(touch)) {
+            for (const i in touches) {
+                if (closest.distanceTo(touch) > touches[i].distanceTo(touch)) {
                     closest = touches[i];
                 }
             }
             return closest;
         };
 
-        switch(evt.touches.length) {
+        switch (evt.touches.length) {
             case 1:
                 this.touches[0]
                     .set(evt.touches[0].pageX, evt.touches[0].pageY, 0)
@@ -173,9 +173,9 @@ export class EditorControl extends THREE.EventDispatcher {
     }
 
     onMouseDown(evt: MouseEvent) {
-        if(this.enabled === false) return;
+        if (this.enabled === false) return;
 
-        switch(evt.button) {
+        switch (evt.button) {
             case STATE.ROTATE:
                 this.state = STATE.ROTATE;
                 break;
@@ -205,7 +205,7 @@ export class EditorControl extends THREE.EventDispatcher {
     }
 
     onMouseMove(evt: MouseEvent) {
-        if(this.enabled === false) return;
+        if (this.enabled === false) return;
 
         this.pointer.set(evt.clientX, evt.clientY);
 
@@ -232,7 +232,7 @@ export class EditorControl extends THREE.EventDispatcher {
         // 设置用来计算边界框的3D对象
         this.box.setFromObject(target);
 
-        if(this.box.isEmpty() === false) {
+        if (this.box.isEmpty() === false) {
             // 获取边界框的中心点坐标
             this.box.getCenter(this.center);
             // 获取包围球的半径
@@ -275,7 +275,7 @@ export class EditorControl extends THREE.EventDispatcher {
         const distance = this.object.position.distanceTo(this.center);
         this.delta.multiplyScalar(distance * this.zoomSpeed);
 
-        if(this.delta.length() > distance) return;
+        if (this.delta.length() > distance) return;
 
         this.delta.applyMatrix3(
             this.normalMatrix.getNormalMatrix(this.object.matrix)

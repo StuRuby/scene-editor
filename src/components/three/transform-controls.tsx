@@ -1,36 +1,46 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import * as _ from 'lodash';
-import { TransformControls as TransformControlsImpl } from 'three/examples/jsm/controls/TransformControls';
-import { TransformControls } from 'drei';
+import { extend, useThree } from 'react-three-fiber';
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import useTransformMode from '../../models/transform';
 import useOrbitMode from '../../models/orbit';
-import useSelected from '../../models/use-selected';
 import useBox, { BoxModel } from '../../models/use-box';
+import useSelected from '../../models/use-selected';
 
-export function TransformControl(props: any) {
-	const transform = useRef<TransformControlsImpl>();
-	const transformMode = useTransformMode();
-	const orbitMode = useOrbitMode();
-	const { selectedUuid } = useSelected();
-	const { updateBox } = useBox();
+extend({ TransformControls, OrbitControls });
 
-	useEffect(() => {
-		if (transform.current) {
-			const controls = transform.current;
-			controls.setMode(transformMode.mode);
-			const fn = (event: THREE.Event) => {
-				orbitMode.setOrbitEnabled(!event.value);
-				const object = controls.object;
-				console.log(controls, '--')
-				if (!selectedUuid || !object) return;
-				updateBox(selectedUuid, _.pick(object, ['position', 'rotation', 'scale']) as BoxModel);
-				controls.attach(object);
-			};
-			controls.addEventListener('dragging-changed', fn);
-			return () => controls.removeEventListener('dragging-changed', fn);
-		}
-	}, [selectedUuid]);
-	return <TransformControls ref={transform}  {...props} >{props.children}</TransformControls>;
-}
+export const TransformControl = React.forwardRef((props: any, ref: any) => {
+    const transform = useRef<TransformControls>();
+    const orbit = useRef<OrbitControls>();
+    const { camera, gl } = useThree();
+    const { updateBox } = useBox();
+    const { selectedUuid } = useSelected();
+
+    const transformMode = useTransformMode();
+    const orbitMode = useOrbitMode();
+
+    useEffect(() => {
+        if (transform.current) {
+            const control = transform.current;
+            control.setMode(transformMode.mode);
+
+            const fn = (evt: THREE.Event) => {
+                orbitMode.setOrbitEnabled(!evt.value);
+                const object = control.object;
+                if (!selectedUuid) return;
+                updateBox(selectedUuid, _.pick(object, ['position', 'rotation', 'scale']) as BoxModel);
+            };
+            control.addEventListener('dragging-changed', fn);
+            return () => control.removeEventListener('dragging-changed', fn);
+        }
+    }, []);
+    return (
+        <>
+            <transformControls ref={transform} args={[camera, gl.domElement]} onUpdate={self => self.attach(ref.current)} />
+            <orbitControls ref={orbit} args={[camera, gl.domElement]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
+        </>
+    );
+});
