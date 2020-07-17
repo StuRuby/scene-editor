@@ -19,13 +19,13 @@ export const TransformControl = React.forwardRef((props: any, ref: any) => {
     const { updateBox } = useBox();
     const { selectedUuid } = useSelected();
 
-    const transformMode = useTransformMode();
+    const { mode } = useTransformMode();
     const orbitMode = useOrbitMode();
 
     useEffect(() => {
         if (transform.current) {
             const control = transform.current;
-            control.setMode(transformMode.mode);
+            control.setMode(mode);
 
             const fn = (evt: THREE.Event) => {
                 orbitMode.setOrbitEnabled(!evt.value);
@@ -36,7 +36,7 @@ export const TransformControl = React.forwardRef((props: any, ref: any) => {
             control.addEventListener('dragging-changed', fn);
             return () => control.removeEventListener('dragging-changed', fn);
         }
-    }, []);
+    }, [mode]);
     return (
         <>
             <transformControls ref={transform} args={[camera, gl.domElement]} onUpdate={self => self.attach(ref.current)} />
