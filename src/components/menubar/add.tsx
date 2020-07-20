@@ -15,7 +15,9 @@ export function AddBox() {
 	const { addBox } = useBox();
 
 	const onClick = () => {
-		addBox({ uuid: THREE.MathUtils.generateUUID() });
+		const uuid = THREE.MathUtils.generateUUID();
+		console.log(uuid, 'add_uuid');
+		addBox({ uuid });
 	};
 	return <div onClick={onClick}>box</div>;
 }

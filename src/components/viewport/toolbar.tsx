@@ -1,10 +1,11 @@
 import React from 'react';
 import { Radio } from 'antd';
+import { RadioChangeEvent } from 'antd/lib/radio';
 import styled from 'styled-components';
 
 import useTransformMode from '../../models/transform';
 import { TransformMode } from '../../config/constants';
-import { RadioChangeEvent } from 'antd/lib/radio';
+import useSelected from '../../models/use-selected';
 
 const ViewportToolbarDiv = styled.div`
 	position: absolute;
@@ -16,6 +17,7 @@ const ViewportToolbarDiv = styled.div`
 
 export function ViewportToolbar() {
 	const { mode, setRotateMode, setScaleMode, setTranslateMode } = useTransformMode();
+	const { selectedUuid } = useSelected();
 	const onSelectChange = (evt: RadioChangeEvent) => {
 		const value = evt.target.value;
 		switch (value) {
@@ -32,6 +34,7 @@ export function ViewportToolbar() {
 				break;
 		}
 	};
+	if (!selectedUuid) return null;
 	return (
 		<ViewportToolbarDiv>
 			<Radio.Group defaultValue={mode} onChange={onSelectChange}>
