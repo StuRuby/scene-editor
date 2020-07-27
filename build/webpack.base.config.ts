@@ -53,7 +53,7 @@ const config: webpack.Configuration = {
                         loader: 'css-loader',
                         options: {
                             modules: true,
-                            sourceMap:true,
+                            sourceMap: true,
                         }
                     },
                     {
@@ -115,7 +115,8 @@ const config: webpack.Configuration = {
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
             ...(isDev ? {
-                'react-dom': '@hot-loader/react-dom'
+                'react-dom': '@hot-loader/react-dom',
+                '@src': path.resolve(__dirname, '../src/')
             } : {})
         }
     },

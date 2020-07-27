@@ -8,7 +8,7 @@ import useSelected from '../../models/use-selected';
 import objectList from '../../models/object-list';
 import { getMousePosition } from '../../utils/dom';
 // TODO
-import { BoxList } from '../three/box-list';
+import { Object3DList } from '../three/object3D-list';
 
 export function ViewportEditor() {
 	const orbitMode = useOrbitMode();
@@ -63,7 +63,7 @@ export function ViewportEditor() {
 	return (
 		<>
 			<pointLight position={[10, 10, 10]} />
-			<BoxList />
+			<Object3DList />
 			<OrbitControls enabled={orbitMode.enabled} />
 		</>
 	);

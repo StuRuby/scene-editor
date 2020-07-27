@@ -7,7 +7,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import useTransformMode from '../../models/transform';
 import useOrbitMode from '../../models/orbit';
-import useBox, { BoxModel } from '../../models/use-box';
+import useBox, { BoxModel } from '../../models/use-object-list';
 import useSelected from '../../models/use-selected';
 
 extend({ TransformControls, OrbitControls });

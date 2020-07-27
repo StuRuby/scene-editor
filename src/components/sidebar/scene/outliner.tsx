@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Tree } from 'antd';
 import styled from 'styled-components';
 
-import useBox from '../../../models/use-box';
+import useBox from '../../../models/use-object-list';
 import useSelected from '../../../models/use-selected';
 
 const { TreeNode } = Tree;

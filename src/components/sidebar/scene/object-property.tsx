@@ -6,7 +6,7 @@ import { RGBColor } from 'react-color';
 import { ColorPicker } from '../../common/color-picker';
 import useSelected from '../../../models/use-selected';
 import objectList from '../../../models/object-list';
-import useBox from '../../../models/use-box';
+import useBox from '../../../models/use-object-list';
 
 const { TextArea } = Input;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as THREE from 'three';
 
-import useBox from '../../models/use-box';
+import useObjectList from '@src/models/use-object-list';
 
 export function AddGroup() {
 	return <div>组</div>;
@@ -12,12 +12,11 @@ export function AddPlane() {
 }
 
 export function AddBox() {
-	const { addBox } = useBox();
+	const { addObject } = useObjectList();
 
 	const onClick = () => {
 		const uuid = THREE.MathUtils.generateUUID();
-		console.log(uuid, 'add_uuid');
-		addBox({ uuid });
+		addObject(uuid);
 	};
 	return <div onClick={onClick}>box</div>;
 }
