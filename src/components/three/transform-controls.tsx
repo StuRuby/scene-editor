@@ -31,7 +31,6 @@ export const TransformControl = React.forwardRef((props: any, ref: any) => {
                 orbitMode.setOrbitEnabled(!evt.value);
                 const object = control.object;
                 if (!selectedUuid) return;
-                updateBox(selectedUuid, _.pick(object, ['position', 'rotation', 'scale']) as BoxModel);
             };
             control.addEventListener('dragging-changed', fn);
             return () => control.removeEventListener('dragging-changed', fn);

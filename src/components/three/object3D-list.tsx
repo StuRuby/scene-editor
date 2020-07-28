@@ -5,9 +5,5 @@ import { Box } from './box';
 
 export function Object3DList() {
 	const { ids } = useObjectList();
-	const boxList = ids.map(uuid => {
-		return <Box key={uuid} />;
-	});
-
-	return <>{boxList}</>;
+	return ids.map(id => <Box key={id} uuid={id} />);
 }

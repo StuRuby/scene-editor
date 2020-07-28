@@ -36,14 +36,18 @@ function useBox() {
 	};
 }
 
+function deepCloneSet(set: Set) {
+	return new Set([...set]);
+}
+
 function useObjectList() {
-	const [ids, setIds] = useState<Set<string>>(new Set());
+	const [ids, setIds] = useState<string[]>([]);
 
 	const addObject = (uuid: string) => {
-		ids.add(uuid);
+		setIds([...ids, uuid]);
 	};
 	const removeObject = (uuid: string) => {
-		ids.delete(uuid);
+		setIds(_.remove(ids, id => id === uuid));
 	}
 
 	return {

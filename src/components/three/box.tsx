@@ -36,11 +36,40 @@ const DEFAULT_BOX: BoxModel = {
 
 
 export function Box(props: Props) {
+	console.log(props, 'box');
 	const { selectedUuid } = useSelected();
 	const box = useRef<THREE.Object3D>(null);
 	const { uuid } = props;
 
-	let object = objectList.getObject(uuid);
+	let object: THREE.Mesh = objectList.getObject(uuid);
+	let boxModel: BoxModel = {};
+	debugger;
+	if (object) {
+		_.assign(boxModel, _.pick(object, [
+			'type',
+			'name',
+			'uuid',
+			'position',
+			'rotation',
+			'scale',
+			'visible',
+			'frustumCulled',
+			'castShadow',
+			'userData',
+		]));
+		boxModel.geometry = _.pick(object.geometry, [
+			'uuid',
+			'name',
+			'width',
+			'height',
+			'depth',
+			'widthSegments',
+			'heightSegments',
+			'depthSegments'
+		]);
+	} else {
+		_.assign(boxModel, DEFAULT_BOX, { uuid });
+	}
 
 	useEffect(() => {
 		const current = box.current;
@@ -54,20 +83,20 @@ export function Box(props: Props) {
 		};
 	}, [uuid, selectedUuid]);
 
-
+	const { uuid, name, visible, userData, position,, rotation, scale, frustumCulled, castShadow, geometry } = boxModel;
 
 	const boxMesh = (
 		<mesh
 			ref={box}
 			uuid={uuid}
-			name={object?.name || ''}
-			// visible={visible}
-			// userData={userData}
-			// position={position}
-			// rotation={rotation}
-			// scale={scale}
-			// frustumCulled={frustumCulled}
-			// castShadow={castShadow}
+			name={name}
+			visible={visible}
+			userData={userData}
+			position={position}
+			rotation={rotation}
+			scale={scale}
+			frustumCulled={frustumCulled}
+			castShadow={castShadow}
 			dispose={null}
 		>
 			<boxBufferGeometry
@@ -93,7 +122,7 @@ export function Box(props: Props) {
 			{boxMesh}
 		</>
 	}
-	return object ?;
+	return boxMesh;
 }
 
 interface Props {
