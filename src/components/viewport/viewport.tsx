@@ -35,7 +35,6 @@ export function ViewportEditor() {
 			onUpPosition.fromArray(array);
 			if (onDownPosition.distanceTo(onUpPosition) === 0) {
 				const intersects = getIntersects(onUpPosition, objectList.objects);
-				debugger;
 				if (intersects.length > 0) {
 					const object = intersects[0].object;
 					const uuid = object.uuid;

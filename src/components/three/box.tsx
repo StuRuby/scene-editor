@@ -1,11 +1,19 @@
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
+import { useResource, extend, useThree } from 'react-three-fiber';
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import * as _ from 'lodash';
 
 import { TransformControl } from './transform-controls';
-import { BoxModel } from '../../models/use-object-list';
-import useSelected from '../../models/use-selected';
-import objectList from '../../models/object-list';
+import { BoxModel } from '@src/models/use-object-list';
+import useSelected from '@src/models/use-selected';
+import objectList from '@src/models/object-list';
+import useTransformMode from '@src/models/transform';
+import useOrbitMode from '@src/models/orbit';
+
+extend({ TransformControls, OrbitControls });
+
 
 const DEFAULT_BOX_GEOMETRY: BoxGeometryModel = {
 	type: 'BoxBufferGeometry',
@@ -36,14 +44,17 @@ const DEFAULT_BOX: BoxModel = {
 
 
 export function Box(props: Props) {
-	console.log(props, 'box');
 	const { selectedUuid } = useSelected();
-	const box = useRef<THREE.Object3D>(null);
+	const { camera, gl, scene } = useThree();
+	const orbit = useRef();
+	const transform = useRef();
+	const [ref, mesh] = useResource();
+	const { mode } = useTransformMode();
+	const orbitMode = useOrbitMode();
 	const { uuid } = props;
 
 	let object: THREE.Mesh = objectList.getObject(uuid);
 	let boxModel: BoxModel = {};
-	debugger;
 	if (object) {
 		_.assign(boxModel, _.pick(object, [
 			'type',
@@ -72,22 +83,31 @@ export function Box(props: Props) {
 	}
 
 	useEffect(() => {
-		const current = box.current;
+		const current = ref.current;
+		const controls = transform.current;
 		if (current) {
 			objectList.addObject(current);
+		}
+		if (transform.current) {
+			controls.setMode(mode);
+			const callback = evt => (orbitMode.setOrbitEnabled(!evt.value));
+			controls.addEventListener('dragging-changed', callback)
 		}
 		return () => {
 			if (current) {
 				objectList.removeObject(current);
 			}
+			if (controls) {
+				controls.removeEventListener('dragging-changed', callback)
+			}
 		};
-	}, [uuid, selectedUuid]);
+	}, [uuid, selectedUuid, mode]);
 
 	const { uuid, name, visible, userData, position,, rotation, scale, frustumCulled, castShadow, geometry } = boxModel;
 
 	const boxMesh = (
 		<mesh
-			ref={box}
+			ref={ref}
 			uuid={uuid}
 			name={name}
 			visible={visible}
@@ -118,8 +138,9 @@ export function Box(props: Props) {
 
 	if (selectedUuid === uuid) {
 		return <>
-			<TransformControl ref={box} />
 			{boxMesh}
+			<orbitControls ref={orbit} args={[camera, gl.domElement]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
+			{mesh && <transformControls ref={transform} args={[camera, gl.domElement]} onUpdate={self => self.attach(mesh)} />}
 		</>
 	}
 	return boxMesh;
