@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Input, InputNumber } from 'antd';
 
-import useBoxGeometry from '../../../../models/box-geometry';
+import useBoxGeometry from '@src/models/box-geometry';
 
 export function BoxGeometry() {
 	const { boxGeometry, setBoxGeometry } = useBoxGeometry();

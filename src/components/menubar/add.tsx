@@ -1,7 +1,8 @@
 import React from 'react';
 import * as THREE from 'three';
 
-import useObjectList from '@src/models/use-object-list';
+import useMeshList from '@src/models/use-mesh-list';
+import { setupDefaultBox } from '@src/components/three/mesh/box';
 
 export function AddGroup() {
 	return <div>组</div>;
@@ -12,11 +13,11 @@ export function AddPlane() {
 }
 
 export function AddBox() {
-	const { addObject } = useObjectList();
+	const { addMesh } = useMeshList();
 
 	const onClick = () => {
-		const uuid = THREE.MathUtils.generateUUID();
-		addObject(uuid);
+		const box = setupDefaultBox();
+		addMesh(box.uuid, box);
 	};
 	return <div onClick={onClick}>box</div>;
 }

@@ -3,9 +3,9 @@ import { Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import styled from 'styled-components';
 
-import useTransformMode from '../../models/transform';
-import { TransformMode } from '../../config/constants';
-import useSelected from '../../models/use-selected';
+import useTransformMode from '@src/models/use-transform-mode';
+import { TransformMode } from '@src/config/constants';
+import useSelected from '@src/models/use-selected';
 
 const ViewportToolbarDiv = styled.div`
 	position: absolute;

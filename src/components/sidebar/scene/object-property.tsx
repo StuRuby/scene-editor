@@ -3,20 +3,19 @@ import * as THREE from 'three';
 import { Space, Row, Col, Input, InputNumber, Button, Checkbox } from 'antd';
 import { RGBColor } from 'react-color';
 
-import { ColorPicker } from '../../common/color-picker';
-import useSelected from '../../../models/use-selected';
-import objectList from '../../../models/object-list';
-import useBox from '../../../models/use-object-list';
+import { ColorPicker } from '@src/components/common/color-picker';
+import useSelected from '@src/models/use-selected';
+import useMeshList from '@src/models/use-mesh-list';
 
 const { TextArea } = Input;
 
 export function SidebarObjectProperty() {
 	const [colorState, setColor] = useState<RGBColor>();
 	const { selectedUuid } = useSelected();
-	const { updateBox } = useBox();
+	const { getMesh, updateMesh } = useMeshList();
 	if (!selectedUuid) return null;
 
-	const selected = objectList.getObject(selectedUuid);
+	const selected = getMesh(selectedUuid);
 	if (!selected) return null;
 	const {
 		type,
@@ -48,15 +47,11 @@ export function SidebarObjectProperty() {
 		userData,
 	} = selected;
 
-	const onUpdateUuid = () => {
-		const nextUuid = THREE.MathUtils.generateUUID();
-		objectList.updateObject(uuid, { uuid: nextUuid });
-		updateBox(uuid, { uuid });
-	};
+
 
 	const onPositionUpdate = (value) => {
 		const nextPosition = new THREE.Vector3(value, position.y, position.z);
-		objectList.updateObject(uuid, { position: nextPosition });
+		updateMesh(uuid, { position: nextPosition });
 	};
 
 	return (
@@ -75,11 +70,7 @@ export function SidebarObjectProperty() {
 						识别码
 					</Col>
 					<Col span={13}>{uuid}</Col>
-					<Col span={4}>
-						<Button type="dashed" size="small" onClick={onUpdateUuid} >
-							更新
-						</Button>
-					</Col>
+
 				</Row>
 			)}
 			{name && (
@@ -101,7 +92,8 @@ export function SidebarObjectProperty() {
 						<Space size="small" align="start">
 							<InputNumber
 								min={0}
-								step={0.001}
+								step={0.1}
+								defaultValue={position.x}
 								value={position.x}
 								size="small"
 								style={{ width: '60px' }}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Space, Row, Col, Input, InputNumber, Button, Checkbox } from 'antd';
 
-import useCommonGeometry from '../../../../models/geometry';
+import useCommonGeometry from '@src/models/geometry';
 
 export function Geometry() {
 	const { commonGeometry, setCommonGeometry } = useCommonGeometry();
