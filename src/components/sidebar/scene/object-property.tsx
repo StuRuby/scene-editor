@@ -6,6 +6,7 @@ import { RGBColor } from 'react-color';
 import { ColorPicker } from '@src/components/common/color-picker';
 import useSelected from '@src/models/use-selected';
 import useMeshList from '@src/models/use-mesh-list';
+import { values } from 'lodash';
 
 const { TextArea } = Input;
 
@@ -49,10 +50,14 @@ export function SidebarObjectProperty() {
 
 
 
-	const onPositionUpdate = (value) => {
-		const nextPosition = new THREE.Vector3(value, position.y, position.z);
-		updateMesh(uuid, { position: nextPosition });
-	};
+	const onPositionXUpdate = value => updateMesh(uuid: { position: new THREE.Vector3(value, position?.y, position?.z) });
+	const onPositionYUpdate = value => updateMesh(uuid: { position: new THREE.Vector3(position?.x, value, position?.z) });
+	const onPositionZUpdate = value => updateMesh(uuid: { position: new THREE.Vector3(position?.x, position?.y, value) });
+
+	const onNameUpdate = (evt) => {
+		const nextName = evt.target.value;
+		updateMesh(uuid, { name: nextName });
+	}
 
 	return (
 		<Space direction="vertical" style={{ width: '100%' }}>
@@ -61,7 +66,7 @@ export function SidebarObjectProperty() {
 					<Col span={6} offset={1}>
 						类型
 					</Col>
-					<Col span={15}>Mesh</Col>
+					<Col span={15}>{type}</Col>
 				</Row>
 			)}
 			{uuid && (
@@ -79,7 +84,7 @@ export function SidebarObjectProperty() {
 						名称
 					</Col>
 					<Col span={15}>
-						<Input defaultValue="Input" size="small" />
+						<Input value={name} size="small" onChange={onNameUpdate} />
 					</Col>
 				</Row>
 			)}
@@ -93,25 +98,26 @@ export function SidebarObjectProperty() {
 							<InputNumber
 								min={0}
 								step={0.1}
-								defaultValue={position.x}
 								value={position.x}
 								size="small"
 								style={{ width: '60px' }}
-								onChange={onPositionUpdate}
+								onChange={onPositionXUpdate}
 							/>
 							<InputNumber
 								min={0}
-								step={0.001}
+								step={0.1}
 								value={position.y}
 								size="small"
 								style={{ width: '60px' }}
+								onChange={onPositionYUpdate}
 							/>
 							<InputNumber
 								min={0}
-								step={0.001}
+								step={0.1}
 								value={position.z}
 								size="small"
 								style={{ width: '60px' }}
+								onChange={onPositionZUpdate}
 							/>
 						</Space>
 					</Col>
