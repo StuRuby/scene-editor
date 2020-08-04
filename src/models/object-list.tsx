@@ -28,6 +28,7 @@ class ObjectList {
 			const value = (property as any)[key];
 			(object as any)[key] = value;
 		}
+		object?.updateMatrixWorld(true);
 	}
 }
 

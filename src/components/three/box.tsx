@@ -90,7 +90,9 @@ export function Box(props: Props) {
 		}
 		if (transform.current) {
 			controls.setMode(mode);
-			const callback = evt => (orbitMode.setOrbitEnabled(!evt.value));
+			const callback = evt => {
+				return orbitMode.setOrbitEnabled(!evt.value);
+			};
 			controls.addEventListener('dragging-changed', callback)
 		}
 		return () => {
@@ -139,7 +141,6 @@ export function Box(props: Props) {
 	if (selectedUuid === uuid) {
 		return <>
 			{boxMesh}
-			<orbitControls ref={orbit} args={[camera, gl.domElement]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
 			{mesh && <transformControls ref={transform} args={[camera, gl.domElement]} onUpdate={self => self.attach(mesh)} />}
 		</>
 	}

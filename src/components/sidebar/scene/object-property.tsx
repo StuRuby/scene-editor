@@ -51,7 +51,12 @@ export function SidebarObjectProperty() {
 	const onUpdateUuid = () => {
 		const nextUuid = THREE.MathUtils.generateUUID();
 		objectList.updateObject(uuid, { uuid: nextUuid });
-		updateBox(uuid, { uuid })
+		updateBox(uuid, { uuid });
+	};
+
+	const onPositionUpdate = (value) => {
+		const nextPosition = new THREE.Vector3(value, position.y, position.z);
+		objectList.updateObject(uuid, { position: nextPosition });
 	};
 
 	return (
@@ -97,18 +102,22 @@ export function SidebarObjectProperty() {
 							<InputNumber
 								min={0}
 								step={0.001}
+								value={position.x}
+								size="small"
+								style={{ width: '60px' }}
+								onChange={onPositionUpdate}
+							/>
+							<InputNumber
+								min={0}
+								step={0.001}
+								value={position.y}
 								size="small"
 								style={{ width: '60px' }}
 							/>
 							<InputNumber
 								min={0}
 								step={0.001}
-								size="small"
-								style={{ width: '60px' }}
-							/>
-							<InputNumber
-								min={0}
-								step={0.001}
+								value={position.z}
 								size="small"
 								style={{ width: '60px' }}
 							/>
