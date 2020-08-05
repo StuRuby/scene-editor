@@ -31,6 +31,18 @@ function useMeshList() {
         setMeshList(nextMeshList);
     };
 
+    const updateMeshGeometry = (uuid: string, geom: BufferGeometry) => {
+        const currentMesh = getMesh(uuid);
+        if (!currentMesh) return;
+        const currentGeom = currentMesh.geometry;
+        const nextGeom = { ...currentGeom, ...geom };
+        const nextMesh = {
+            [uuid]: { ...currentMesh, ...({ geometry: nextGeom }) };
+        };
+
+        setMeshList({ ...meshList, ...nextMesh });
+    };
+
     return {
         meshList,
         addMesh,

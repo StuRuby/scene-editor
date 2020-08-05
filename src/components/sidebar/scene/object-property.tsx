@@ -4,16 +4,14 @@ import { Space, Row, Col, Input, InputNumber, Button, Checkbox, message } from '
 import { RGBColor } from 'react-color';
 import styled from 'styled-components';
 import classnames from 'classnames';
-import * as _ from 'lodash';
 
 import { ColorPicker } from '@src/components/common/color-picker';
 import useSelected from '@src/models/use-selected';
 import useMeshList from '@src/models/use-mesh-list';
-import { values } from 'lodash';
+import { isNotUndefined } from '@src/utils/lodash-enhance';
 
 const { TextArea } = Input;
 
-const isNotUndefined = (value) => !_.isUndefined(value);
 
 const SiderbarContainer = styled.div`
 	.fail {
@@ -63,7 +61,10 @@ export function SidebarObjectProperty() {
 		userData,
 	} = selected;
 
-
+	const onNameUpdate = (evt) => {
+		const nextName = evt.target.value;
+		updateMesh(uuid, { name: nextName });
+	}
 
 	const onPositionXUpdate = value => updateMesh(uuid: { position: new THREE.Vector3(value, position?.y, position?.z) });
 	const onPositionYUpdate = value => updateMesh(uuid: { position: new THREE.Vector3(position?.x, value, position?.z) });
@@ -97,13 +98,6 @@ export function SidebarObjectProperty() {
 			message.error('请输入正确的userData');
 		}
 	};
-
-
-
-	const onNameUpdate = (evt) => {
-		const nextName = evt.target.value;
-		updateMesh(uuid, { name: nextName });
-	}
 
 	return (
 		<SiderbarContainer>
