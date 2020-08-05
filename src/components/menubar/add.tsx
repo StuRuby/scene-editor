@@ -19,7 +19,7 @@ export function AddBox() {
 		const box = setupDefaultBox();
 		addMesh(box.uuid, box);
 	};
-	return <div onClick={onClick}>box</div>;
+	return <div onClick={onClick}>立方体</div>;
 }
 
 export function AddCircle() {
