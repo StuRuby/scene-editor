@@ -12,7 +12,7 @@ const options: webpackDevServer.Configuration = {
     contentBase: path.resolve(__dirname, '../dist'),
     compress: true,
     port: 3000,
-    noInfo: false,
+    noInfo: true,
     historyApiFallback: true,
     open: true,
     hotOnly: true,
