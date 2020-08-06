@@ -53,6 +53,7 @@ export function setupDefaultBox() {
         castShadow: false,
         userData: {},
         geometry: {
+            index: null,
             type: 'BoxBufferGeometry',
             name: '',
             uuid: THREE.MathUtils.generateUUID(),
@@ -62,6 +63,18 @@ export function setupDefaultBox() {
             widthSegments: 1,
             heightSegments: 1,
             depthSegments: 1,
+            attributes: {
+                position: new THREE.BufferAttribute(
+                    new Float32Array([
+                        -1.0, -1.0, 1.0,
+                        1.0, -1.0, 1.0,
+                        1.0, 1.0, 1.0,
+
+                        1.0, 1.0, 1.0,
+                        -1.0, 1.0, 1.0,
+                        -1.0, -1.0, 1.0
+                    ]), 3),
+            }
         },
     };
 

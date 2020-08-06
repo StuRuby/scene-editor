@@ -1,19 +1,25 @@
 import React from 'react';
 import * as THREE from 'three';
 import styled from 'styled-components';
-import { Space, Row, Col, InputNumber, Input } from 'antd';
+import classnames from 'classnames';
+import { Space, Row, Col, InputNumber, Input, List, Button } from 'antd';
 
 import useSelected from '@src/models/use-selected';
 import useMeshList from '@src/models/use-mesh-list';
+import useVertexNormalHelper from '@src/models/use-vertex-normal-helper';
 import { isNotUndefined } from '@src/utils/lodash-enhance';
 
 const SidebarContainer = styled.div`
-
+	.ant-btn.active {
+		background-color: #ff4d4f;
+		border-color: #ff4d4f;
+	}
 `;
 
 export function SidebarGeometryProperty() {
 	const { selectedUuid } = useSelected();
 	const { getMesh, updateMeshGeometry } = useMeshList();
+	const { vertexNormalHelperVisible, setVertexNormalHelperVisible } = useVertexNormalHelper();
 
 	if (!selectedUuid) return null;
 	const selected = getMesh(selectedUuid);
@@ -23,7 +29,7 @@ export function SidebarGeometryProperty() {
 	const meshUuid = selected.uuid;
 	if (!geometry) return null;
 
-	const { type, uuid, name, width, height, depth, widthSegments, heightSegments, depthSegments, attributes } = geometry;
+	const { type, uuid, name, width, height, depth, widthSegments, heightSegments, depthSegments, index, attributes } = geometry;
 
 	const onNameUpdate = (evt) => updateMeshGeometry(meshUuid, { name: evt.target.value });
 
@@ -33,6 +39,14 @@ export function SidebarGeometryProperty() {
 	const onWidthSegmentsUpdate = value => updateMeshGeometry(meshUuid, { widthSegments: value });
 	const onHeightSegmentsUpdate = value => updateMeshGeometry(meshUuid, { heightSegments: value });
 	const onDepthSegmentsUpdate = value => updateMeshGeometry(meshUuid, { depthSegments: value });
+
+	const onVertexNormalHelperClicked = () => {
+		setVertexNormalHelperVisible(!vertexNormalHelperVisible);
+	};
+
+
+
+	console.log(attributes, 'attributes');
 
 	return <SidebarContainer>
 		<Space direction="vertical" style={{ width: '100%' }}>
@@ -165,6 +179,42 @@ export function SidebarGeometryProperty() {
 					</Col>
 				</Row>
 			)}
+			{isNotUndefined(attributes) && (
+				<Row align="middle">
+					<Col span={6} offset={1}>
+						属性
+					</Col>
+					<Col span={15}>
+						<List
+							size='small'
+							bordered
+							dataSource={
+								[`索引 : ${index || 'null'}`].concat(
+									_.map(
+										_.keys(attributes),
+										key => {
+											const value: THREE.BufferAttribute = attributes[key];
+											const text = `${value.count} (${value.itemSize})`;
+											return `${key} : ${text}`;
+										}
+									)
+								)
+							}
+							renderItem={item => <List.Item>{item}</List.Item>}
+						/>
+					</Col>
+				</Row>
+			)}
+			<Row align='middle'>
+				<Col span={8} offset={8}>
+					<Button
+						type='primary'
+						size='small'
+						className={classnames({ 'active': vertexNormalHelperVisible })}
+						onClick={onVertexNormalHelperClicked}
+					>显示顶点法线</Button>
+				</Col>
+			</Row>
 		</Space>
 	</SidebarContainer>
 }

@@ -9,6 +9,7 @@ declare global {
         interface IntrinsicElements {
             transformControls: ReactThreeFiber.Object3DNode<TransformControls, typeof TransformControls>;
             orbitControls: ReactThreeFiber.Object3DNode<OrbitControls, typeof OrbitControls>;
+            vertexNormalsHelper: ReactThreeFiber.Object3DNode<VertexNormalsHelper, typeof VertexNormalsHelper>;
         }
     }
 }
