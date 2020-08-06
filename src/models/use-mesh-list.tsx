@@ -49,6 +49,7 @@ function useMeshList() {
         removeMesh,
         getMesh,
         updateMesh,
+        updateMeshGeometry,
     };
 }
 

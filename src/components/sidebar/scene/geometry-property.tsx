@@ -13,20 +13,26 @@ const SidebarContainer = styled.div`
 
 export function SidebarGeometryProperty() {
 	const { selectedUuid } = useSelected();
-	const { getMesh, updateMesh } = useMeshList();
+	const { getMesh, updateMeshGeometry } = useMeshList();
 
 	if (!selectedUuid) return null;
 	const selected = getMesh(selectedUuid);
 	if (!selected) return null;
 
 	const { geometry } = selected;
+	const meshUuid = selected.uuid;
 	if (!geometry) return null;
 
 	const { type, uuid, name, width, height, depth, widthSegments, heightSegments, depthSegments, attributes } = geometry;
 
-	const onNameUpdate = (evt) => {
+	const onNameUpdate = (evt) => updateMeshGeometry(meshUuid, { name: evt.target.value });
 
-	}
+	const onWidthUpdate = value => updateMeshGeometry(meshUuid, { width: value });
+	const onHeightUpdate = value => updateMeshGeometry(meshUuid, { height: value });
+	const onDepthUpdate = value => updateMeshGeometry(meshUuid, { depth: value });
+	const onWidthSegmentsUpdate = value => updateMeshGeometry(meshUuid, { widthSegments: value });
+	const onHeightSegmentsUpdate = value => updateMeshGeometry(meshUuid, { heightSegments: value });
+	const onDepthSegmentsUpdate = value => updateMeshGeometry(meshUuid, { depthSegments: value });
 
 	return <SidebarContainer>
 		<Space direction="vertical" style={{ width: '100%' }}>
@@ -53,7 +59,7 @@ export function SidebarGeometryProperty() {
 						名称
 					</Col>
 					<Col span={15}>
-						<Input value={name} size="small" onChange={onNameUpdate} />
+						<Input defaultValue={name} size="small" onChange={onNameUpdate} />
 					</Col>
 				</Row>
 			)}
@@ -66,10 +72,10 @@ export function SidebarGeometryProperty() {
 						<InputNumber
 							min={0}
 							step={0.1}
-							value={position.x}
+							defaultValue={width}
 							size="small"
 							style={{ width: '60px' }}
-							onChange={onPositionXUpdate}
+							onChange={onWidthUpdate}
 						/>
 					</Col>
 				</Row>
@@ -83,10 +89,10 @@ export function SidebarGeometryProperty() {
 						<InputNumber
 							min={0}
 							step={0.1}
-							value={position.x}
+							value={height}
 							size="small"
 							style={{ width: '60px' }}
-							onChange={onPositionXUpdate}
+							onChange={onHeightUpdate}
 						/>
 					</Col>
 				</Row>
@@ -100,10 +106,10 @@ export function SidebarGeometryProperty() {
 						<InputNumber
 							min={0}
 							step={0.1}
-							value={position.x}
+							value={depth}
 							size="small"
 							style={{ width: '60px' }}
-							onChange={onPositionXUpdate}
+							onChange={onDepthUpdate}
 						/>
 					</Col>
 				</Row>
@@ -117,10 +123,10 @@ export function SidebarGeometryProperty() {
 						<InputNumber
 							min={0}
 							step={0.1}
-							value={position.x}
+							value={widthSegments}
 							size="small"
 							style={{ width: '60px' }}
-							onChange={onPositionXUpdate}
+							onChange={onWidthSegmentsUpdate}
 						/>
 					</Col>
 				</Row>
@@ -134,10 +140,10 @@ export function SidebarGeometryProperty() {
 						<InputNumber
 							min={0}
 							step={0.1}
-							value={position.x}
+							value={heightSegments}
 							size="small"
 							style={{ width: '60px' }}
-							onChange={onPositionXUpdate}
+							onChange={onHeightSegmentsUpdate}
 						/>
 					</Col>
 				</Row>
@@ -151,10 +157,10 @@ export function SidebarGeometryProperty() {
 						<InputNumber
 							min={0}
 							step={0.1}
-							value={position.x}
+							value={depthSegments}
 							size="small"
 							style={{ width: '60px' }}
-							onChange={onPositionXUpdate}
+							onChange={onDepthSegmentsUpdate}
 						/>
 					</Col>
 				</Row>

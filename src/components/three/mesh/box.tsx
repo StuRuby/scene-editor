@@ -7,8 +7,7 @@ import useSelected from '@src/models/use-selected';
 export default React.forwardRef((props, ref) => {
     const { setSelected } = useSelected();
     const { instance } = props;
-    const { uuid, name, visible, userData, position,, rotation, scale, frustumCulled, castShadow, geometry } = instance;
-
+    const { uuid, name, visible, userData, position, rotation, scale, frustumCulled, castShadow, geometry } = instance;
     return <mesh
         ref={ref}
         uuid={uuid}
