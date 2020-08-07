@@ -3,11 +3,23 @@ import * as THREE from 'three';
 
 import { Mesh } from '@src/models/use-mesh-list';
 import useSelected from '@src/models/use-selected';
+import { MeshStandardMaterial } from '@src/components/three/material/mesh-standard-material';
 
-export default React.forwardRef((props, ref) => {
+export default React.forwardRef((props: Props, ref) => {
     const { setSelected } = useSelected();
     const { instance } = props;
-    const { uuid, name, visible, userData, position,, rotation, scale, frustumCulled, castShadow, geometry } = instance;
+    const { uuid, name, visible, userData, position, rotation, scale, frustumCulled, castShadow, geometry, material } = instance;
+
+    let Material = null;
+    switch (material?.type) {
+        case 'MeshStandardMaterial':
+            Material = <MeshStandardMaterial material={material} />
+            break;
+        case 'MeshPhongMaterial':
+            break;
+        default:
+            break;
+    }
 
     return <mesh
         ref={ref}
@@ -36,7 +48,7 @@ export default React.forwardRef((props, ref) => {
                 geometry?.depthSegments,
             ]}
         />
-        <meshStandardMaterial attach="material" color="hotpink" transparent />
+        {Material}
     </mesh>
 });
 
@@ -54,6 +66,7 @@ export function setupDefaultBox() {
         castShadow: false,
         userData: {},
         geometry: {
+            index: null,
             type: 'BoxBufferGeometry',
             name: '',
             uuid: THREE.MathUtils.generateUUID(),
@@ -63,6 +76,18 @@ export function setupDefaultBox() {
             widthSegments: 1,
             heightSegments: 1,
             depthSegments: 1,
+            attributes: {
+                position: new THREE.BufferAttribute(
+                    new Float32Array([
+                        -1.0, -1.0, 1.0,
+                        1.0, -1.0, 1.0,
+                        1.0, 1.0, 1.0,
+
+                        1.0, 1.0, 1.0,
+                        -1.0, 1.0, 1.0,
+                        -1.0, -1.0, 1.0
+                    ]), 3),
+            }
         },
     };
 

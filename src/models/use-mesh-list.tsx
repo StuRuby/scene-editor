@@ -49,6 +49,7 @@ function useMeshList() {
         removeMesh,
         getMesh,
         updateMesh,
+        updateMeshGeometry,
     };
 }
 
@@ -87,6 +88,6 @@ interface BufferGeometry {
     attributes?: THREE.BufferAttribute;
 }
 
-interface Material {
-    [key: string]: any;
+interface Material extends THREE.MaterialParameters {
+    type: 'MeshStandardMaterial' | 'MeshPhongMaterial';
 }
