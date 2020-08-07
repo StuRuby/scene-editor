@@ -88,6 +88,6 @@ interface BufferGeometry {
     attributes?: THREE.BufferAttribute;
 }
 
-interface Material {
-    [key: string]: any;
+interface Material extends THREE.MaterialParameters {
+    type: 'MeshStandardMaterial' | 'MeshPhongMaterial';
 }
