@@ -37,7 +37,20 @@ function useMeshList() {
         const currentGeom = currentMesh.geometry;
         const nextGeom = { ...currentGeom, ...geom };
         const nextMesh = {
-            [uuid]: { ...currentMesh, ...({ geometry: nextGeom }) };
+            [uuid]: { ...currentMesh, ...({ geometry: nextGeom }) }
+        };
+
+        setMeshList({ ...meshList, ...nextMesh });
+    };
+
+    const updateMeshMaterial = (uuid: string, material: Material) => {
+        const currentMesh = getMesh(uuid);
+        if (!currentMesh) return;
+
+        const currentMaterial = currentMesh.material;
+        const nextMaterial = { ...currentMaterial, ...material };
+        const nextMesh = {
+            [uuid]: { ...currentMesh, ...({ material: nextMaterial }) }
         };
 
         setMeshList({ ...meshList, ...nextMesh });
@@ -50,6 +63,7 @@ function useMeshList() {
         getMesh,
         updateMesh,
         updateMeshGeometry,
+        updateMeshMaterial,
     };
 }
 

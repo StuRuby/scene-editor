@@ -16,6 +16,7 @@ export default React.forwardRef((props: Props, ref) => {
             Material = <MeshStandardMaterial material={material} />
             break;
         case 'MeshPhongMaterial':
+
             break;
         default:
             break;
