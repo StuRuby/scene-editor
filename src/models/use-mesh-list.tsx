@@ -37,7 +37,20 @@ function useMeshList() {
         const currentGeom = currentMesh.geometry;
         const nextGeom = { ...currentGeom, ...geom };
         const nextMesh = {
-            [uuid]: { ...currentMesh, ...({ geometry: nextGeom }) };
+            [uuid]: { ...currentMesh, ...({ geometry: nextGeom }) }
+        };
+
+        setMeshList({ ...meshList, ...nextMesh });
+    };
+
+    const updateMeshMaterial = (uuid: string, material: Material) => {
+        const currentMesh = getMesh(uuid);
+        if (!currentMesh) return;
+
+        const currentMaterial = currentMesh.material;
+        const nextMaterial = { ...currentMaterial, ...material };
+        const nextMesh = {
+            [uuid]: { ...currentMesh, ...({ material: nextMaterial }) }
         };
 
         setMeshList({ ...meshList, ...nextMesh });
@@ -50,6 +63,7 @@ function useMeshList() {
         getMesh,
         updateMesh,
         updateMeshGeometry,
+        updateMeshMaterial,
     };
 }
 
@@ -62,7 +76,7 @@ interface MeshList {
 
 export interface Mesh {
     type?: string;
-    uuid?: string;
+    uuid: string;
     name?: string;
     position?: THREE.Vector3;
     rotation?: THREE.Euler;
@@ -76,6 +90,7 @@ export interface Mesh {
 }
 
 interface BufferGeometry {
+    index: null | string,
     type?: string;
     uuid?: string;
     name?: string;
@@ -85,9 +100,12 @@ interface BufferGeometry {
     widthSegments?: number;
     heightSegments?: number;
     depthSegments?: number;
-    attributes?: THREE.BufferAttribute;
+    attributes?: {
+        [name: string]: THREE.BufferAttribute;
+    }
 }
 
-interface Material extends THREE.MaterialParameters {
+interface Material extends THREE.MaterialParameters, THREE.MeshStandardMaterialParameters {
     type: 'MeshStandardMaterial' | 'MeshPhongMaterial';
+    uuid?: string;
 }

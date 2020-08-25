@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { createModel } from 'hox';
 
 function useSelected() {
-	const [selectedUuid, setSelected] = useState<string | null>(null);
+	const [selectedUuid, setSelected] = useState<string>();
 	return {
 		selectedUuid,
 		setSelected,

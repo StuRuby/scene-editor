@@ -10,7 +10,7 @@ export class AddObjectCommand extends Command {
         super(editor);
         this.type = 'AddObjectCommand';
         this.object = object;
-        if(object !== undefined) {
+        if (object !== undefined) {
             this.name = `Add Object: ${object.name}`;
         }
     }
@@ -34,10 +34,10 @@ export class AddObjectCommand extends Command {
     fromJSON(json: ObjectJson) {
         super.fromJSON(json);
         const uuid = json.object?.object.uuid;
-        if(uuid !== undefined) {
+        if (uuid !== undefined) {
             this.object = this.editor.getObjectByUuid(uuid) as THREE.Object3D;
         }
-        if(this.object === undefined) {
+        if (this.object === undefined) {
             const loader = new THREE.ObjectLoader();
             this.object = loader.parse(json.object);
         }
