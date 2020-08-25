@@ -90,6 +90,7 @@ export interface Mesh {
 }
 
 interface BufferGeometry {
+    index: null | string,
     type?: string;
     uuid?: string;
     name?: string;
@@ -99,9 +100,12 @@ interface BufferGeometry {
     widthSegments?: number;
     heightSegments?: number;
     depthSegments?: number;
-    attributes?: THREE.BufferAttribute;
+    attributes?: {
+        [name: string]: THREE.BufferAttribute;
+    }
 }
 
-interface Material extends THREE.MaterialParameters {
+interface Material extends THREE.MaterialParameters, THREE.MeshStandardMaterialParameters {
     type: 'MeshStandardMaterial' | 'MeshPhongMaterial';
+    uuid?: string;
 }

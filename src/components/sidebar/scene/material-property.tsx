@@ -21,12 +21,12 @@ export function SidebarMaterialProperty() {
 	if (!selected) return null;
 
 	const { material } = selected;
-	console.log(material, 'material');
-	const { type } = material;
+	if (!material) return null;
+	const { type, uuid, name } = material;
 
 	const meshUuid = selected.uuid;
 
-	const onNameUpdate = (evt) => updateMeshMaterial()
+	const onNameUpdate = () => { };
 
 	return <SidebarContainer>
 		<Space direction="vertical" style={{ width: '100%' }}>
