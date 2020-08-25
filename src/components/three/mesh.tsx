@@ -16,9 +16,9 @@ extend({ TransformControls, VertexNormalsHelper });
 
 
 export function Mesh(props: Props) {
-    const transform = useRef();
+    const transform = useRef<TransformControls>();
     const { instance } = props;
-    const [ref, mesh] = useResource();
+    const [ref, mesh] = useResource<THREE.Mesh>();
     const { camera, gl, scene } = useThree();
     const { selectedUuid } = useSelected();
     const { mode } = useTransformMode();
@@ -40,13 +40,13 @@ export function Mesh(props: Props) {
 
     useEffect(() => {
         const controls = transform.current;
+        const callback = (evt: THREE.Event) => {
+            const { position, rotation, scale } = mesh;
+            updateMesh(uuid, { uuid, position, rotation, scale });
+            setOrbitEnabled(!evt.value);
+        };
         if (controls) {
             controls.setMode(mode);
-            const callback = evt => {
-                const { position, rotation, scale } = mesh;
-                updateMesh(uuid, { position, rotation, scale });
-                setOrbitEnabled(!evt.value);
-            };
             controls.addEventListener('dragging-changed', callback);
         }
         return () => {

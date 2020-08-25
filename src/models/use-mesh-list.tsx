@@ -76,7 +76,7 @@ interface MeshList {
 
 export interface Mesh {
     type?: string;
-    uuid?: string;
+    uuid: string;
     name?: string;
     position?: THREE.Vector3;
     rotation?: THREE.Euler;
