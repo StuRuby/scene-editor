@@ -89,6 +89,6 @@
     "reactcss": "^1.2.3",
     "signals": "^1.0.0",
     "styled-components": "^5.1.0",
-    "three": "^0.117.1"
+    "three": "^0.125.0"
   }
 }
